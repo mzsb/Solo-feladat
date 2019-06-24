@@ -5,9 +5,11 @@ VisualStudioVersion = 16.0.28803.452
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Solo.WebApp", "Solo.WebApp\Solo.WebApp.csproj", "{55299546-CA55-4B82-9760-23A22C8B9C52}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Solo.DAL", "Solo.DAL\Solo.DAL.csproj", "{F3D57C5D-8443-4C4A-BE0F-8C5F3D22F5C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Solo.DAL", "Solo.DAL\Solo.DAL.csproj", "{F3D57C5D-8443-4C4A-BE0F-8C5F3D22F5C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Solo.BLL", "Solo.BLL\Solo.BLL.csproj", "{C3821EE0-9DCF-49EB-947A-3E88AE6D5400}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Solo.BLL", "Solo.BLL\Solo.BLL.csproj", "{C3821EE0-9DCF-49EB-947A-3E88AE6D5400}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Solo.Model", "Solo.Model\Solo.Model.csproj", "{0CFA97FC-CC35-4EEA-B6D1-67E60969454B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{C3821EE0-9DCF-49EB-947A-3E88AE6D5400}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3821EE0-9DCF-49EB-947A-3E88AE6D5400}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3821EE0-9DCF-49EB-947A-3E88AE6D5400}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0CFA97FC-CC35-4EEA-B6D1-67E60969454B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CFA97FC-CC35-4EEA-B6D1-67E60969454B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CFA97FC-CC35-4EEA-B6D1-67E60969454B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CFA97FC-CC35-4EEA-B6D1-67E60969454B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
