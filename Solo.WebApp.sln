@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.452
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Solo.WebApp", "Solo.WebApp\Solo.WebApp.csproj", "{55299546-CA55-4B82-9760-23A22C8B9C52}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Solo.DAL", "Solo.DAL\Solo.DAL.csproj", "{F3D57C5D-8443-4C4A-BE0F-8C5F3D22F5C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Solo.BLL", "Solo.BLL\Solo.BLL.csproj", "{C3821EE0-9DCF-49EB-947A-3E88AE6D5400}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{55299546-CA55-4B82-9760-23A22C8B9C52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55299546-CA55-4B82-9760-23A22C8B9C52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55299546-CA55-4B82-9760-23A22C8B9C52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55299546-CA55-4B82-9760-23A22C8B9C52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3D57C5D-8443-4C4A-BE0F-8C5F3D22F5C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3D57C5D-8443-4C4A-BE0F-8C5F3D22F5C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3D57C5D-8443-4C4A-BE0F-8C5F3D22F5C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3D57C5D-8443-4C4A-BE0F-8C5F3D22F5C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3821EE0-9DCF-49EB-947A-3E88AE6D5400}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3821EE0-9DCF-49EB-947A-3E88AE6D5400}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3821EE0-9DCF-49EB-947A-3E88AE6D5400}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3821EE0-9DCF-49EB-947A-3E88AE6D5400}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C320E289-C67D-40B7-9A24-4C425CC71325}
+	EndGlobalSection
+EndGlobal
