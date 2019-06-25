@@ -8,5 +8,7 @@ namespace Solo_feladat.Model.Models
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
+
+        public ICollection<Flight> Flights { get; set; } = new List<Flight>();
     }
 }

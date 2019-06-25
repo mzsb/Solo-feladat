@@ -215,7 +215,7 @@
           "dependencies": {
             "AutoMapper.Extensions.Microsoft.DependencyInjection": {
               "target": "Package",
-              "version": "[6.1.1, )"
+              "version": "[6.1.0, )"
             },
             "Microsoft.AspNetCore.App": {
               "suppressParent": "All",

@@ -8,6 +8,7 @@ namespace Solo_feladat.BLL.Interfaces
 {
     public interface IPilotManager
     {
-        Task<List<Pilot>>  GetPilotsAsync();
+        Task<List<Pilot>> GetPilotsAsync();
+        Task<List<Flight>> GetFlightsByPilotIdAsync(Guid PilotId);
     }
 }

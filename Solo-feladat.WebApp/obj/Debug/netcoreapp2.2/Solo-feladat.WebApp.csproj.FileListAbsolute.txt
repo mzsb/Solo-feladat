@@ -34,3 +34,6 @@ U:\solo-feladat\Solo-feladat\Solo-feladat.WebApp\obj\Debug\netcoreapp2.2\Solo-fe
 U:\solo-feladat\Solo-feladat\Solo-feladat.WebApp\obj\Debug\netcoreapp2.2\Solo-feladat.WebApp.csproj.CopyComplete
 U:\solo-feladat\Solo-feladat\Solo-feladat.WebApp\obj\Debug\netcoreapp2.2\Solo-feladat.WebApp.dll
 U:\solo-feladat\Solo-feladat\Solo-feladat.WebApp\obj\Debug\netcoreapp2.2\Solo-feladat.WebApp.pdb
+U:\solo-feladat\solo-feladat\Solo-feladat.WebApp\obj\Debug\netcoreapp2.2\Razor\Pages\UploadLog.g.cshtml.cs
+U:\solo-feladat\solo-feladat\Solo-feladat.WebApp\obj\Debug\netcoreapp2.2\Razor\Pages\Flights.g.cshtml.cs
+U:\solo-feladat\solo-feladat\Solo-feladat.WebApp\obj\Debug\netcoreapp2.2\Razor\Pages\FlightDetails.g.cshtml.cs

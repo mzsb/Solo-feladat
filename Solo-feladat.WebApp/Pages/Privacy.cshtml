@@ -1,8 +1,21 @@
 ﻿@page
-@model PrivacyModel
-@{
-    ViewData["Title"] = "Privacy Policy";
-}
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+@{
+    var name = string.Empty;
+    if (Request.HasFormContentType)
+    {
+        name = Request.Form["name"];
+    }
+}
+<div style="margin-top:30px;">
+    <form method="post">
+        <div>Name: <input name="name" /></div>
+        <div><input type="submit" /></div>
+    </form>
+</div>
+<div>
+    @if (!string.IsNullOrEmpty(name))
+    {
+        <p>Hello @name!</p>
+    }
+</div>

@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28803.452
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Solo-feladat.WebApp", "Solo-feladat.WebApp\Solo-feladat.WebApp.csproj", "{4A4ADF28-194F-47EF-89E9-063AE57C35CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Solo-feladat.WebApp", "Solo-feladat.WebApp\Solo-feladat.WebApp.csproj", "{4A4ADF28-194F-47EF-89E9-063AE57C35CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Solo-feladat.DAL", "Solo-feladat.DAL\Solo-feladat.DAL.csproj", "{5593CFF1-A437-41B9-B119-EB9D254AFFC1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Solo-feladat.DAL", "Solo-feladat.DAL\Solo-feladat.DAL.csproj", "{5593CFF1-A437-41B9-B119-EB9D254AFFC1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Solo-feladat.BLL", "Solo-feladat.BLL\Solo-feladat.BLL.csproj", "{0B66A397-193A-4035-AE7C-915C6987DE88}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Solo-feladat.BLL", "Solo-feladat.BLL\Solo-feladat.BLL.csproj", "{0B66A397-193A-4035-AE7C-915C6987DE88}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Solo-feladat.Model", "Solo-feladat.Model\Solo-feladat.Model.csproj", "{3B5D6712-9F65-42C9-8D79-BA4AE0538596}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Solo-feladat.Model", "Solo-feladat.Model\Solo-feladat.Model.csproj", "{3B5D6712-9F65-42C9-8D79-BA4AE0538596}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
