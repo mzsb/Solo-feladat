@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <RootNamespace>Solo_feladat.BLL</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Solo-feladat.DAL\Solo-feladat.DAL.csproj" />
+  </ItemGroup>
+
+</Project>

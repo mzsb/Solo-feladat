@@ -1,0 +1,247 @@
+{
+  "format": 1,
+  "restore": {
+    "U:\\solo-feladat\\solo-feladat\\Solo-feladat.WebApp\\Solo-feladat.WebApp.csproj": {}
+  },
+  "projects": {
+    "U:\\solo-feladat\\solo-feladat\\Solo-feladat.BLL\\Solo-feladat.BLL.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "U:\\solo-feladat\\solo-feladat\\Solo-feladat.BLL\\Solo-feladat.BLL.csproj",
+        "projectName": "Solo-feladat.BLL",
+        "projectPath": "U:\\solo-feladat\\solo-feladat\\Solo-feladat.BLL\\Solo-feladat.BLL.csproj",
+        "packagesPath": "C:\\Users\\mozs.barnabas\\.nuget\\packages\\",
+        "outputPath": "U:\\solo-feladat\\solo-feladat\\Solo-feladat.BLL\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\mozs.barnabas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.2"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.2": {
+            "projectReferences": {
+              "U:\\solo-feladat\\solo-feladat\\Solo-feladat.DAL\\Solo-feladat.DAL.csproj": {
+                "projectPath": "U:\\solo-feladat\\solo-feladat\\Solo-feladat.DAL\\Solo-feladat.DAL.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.2": {
+          "dependencies": {
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    },
+    "U:\\solo-feladat\\solo-feladat\\Solo-feladat.DAL\\Solo-feladat.DAL.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "U:\\solo-feladat\\solo-feladat\\Solo-feladat.DAL\\Solo-feladat.DAL.csproj",
+        "projectName": "Solo-feladat.DAL",
+        "projectPath": "U:\\solo-feladat\\solo-feladat\\Solo-feladat.DAL\\Solo-feladat.DAL.csproj",
+        "packagesPath": "C:\\Users\\mozs.barnabas\\.nuget\\packages\\",
+        "outputPath": "U:\\solo-feladat\\solo-feladat\\Solo-feladat.DAL\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\mozs.barnabas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.2"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.2": {
+            "projectReferences": {
+              "U:\\solo-feladat\\solo-feladat\\Solo-feladat.Model\\Solo-feladat.Model.csproj": {
+                "projectPath": "U:\\solo-feladat\\solo-feladat\\Solo-feladat.Model\\Solo-feladat.Model.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.2": {
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[2.2.4, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    },
+    "U:\\solo-feladat\\solo-feladat\\Solo-feladat.Model\\Solo-feladat.Model.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "U:\\solo-feladat\\solo-feladat\\Solo-feladat.Model\\Solo-feladat.Model.csproj",
+        "projectName": "Solo-feladat.Model",
+        "projectPath": "U:\\solo-feladat\\solo-feladat\\Solo-feladat.Model\\Solo-feladat.Model.csproj",
+        "packagesPath": "C:\\Users\\mozs.barnabas\\.nuget\\packages\\",
+        "outputPath": "U:\\solo-feladat\\solo-feladat\\Solo-feladat.Model\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\mozs.barnabas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.2"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.2": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.2": {
+          "dependencies": {
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    },
+    "U:\\solo-feladat\\solo-feladat\\Solo-feladat.WebApp\\Solo-feladat.WebApp.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "U:\\solo-feladat\\solo-feladat\\Solo-feladat.WebApp\\Solo-feladat.WebApp.csproj",
+        "projectName": "Solo-feladat.WebApp",
+        "projectPath": "U:\\solo-feladat\\solo-feladat\\Solo-feladat.WebApp\\Solo-feladat.WebApp.csproj",
+        "packagesPath": "C:\\Users\\mozs.barnabas\\.nuget\\packages\\",
+        "outputPath": "U:\\solo-feladat\\solo-feladat\\Solo-feladat.WebApp\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\mozs.barnabas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.2"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.2": {
+            "projectReferences": {
+              "U:\\solo-feladat\\solo-feladat\\Solo-feladat.BLL\\Solo-feladat.BLL.csproj": {
+                "projectPath": "U:\\solo-feladat\\solo-feladat\\Solo-feladat.BLL\\Solo-feladat.BLL.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.2": {
+          "dependencies": {
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[6.1.1, )"
+            },
+            "Microsoft.AspNetCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
+            },
+            "Microsoft.AspNetCore.Razor.Design": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+U:\solo-feladat\Solo-feladat\Solo-feladat.DAL\bin\Debug\netcoreapp2.2\Solo-feladat.Model.dll
+U:\solo-feladat\Solo-feladat\Solo-feladat.DAL\obj\Debug\netcoreapp2.2\Solo-feladat.DAL.csprojAssemblyReference.cache
+U:\solo-feladat\Solo-feladat\Solo-feladat.DAL\obj\Debug\netcoreapp2.2\Solo-feladat.DAL.csproj.CoreCompileInputs.cache
+U:\solo-feladat\Solo-feladat\Solo-feladat.DAL\obj\Debug\netcoreapp2.2\Solo-feladat.DAL.AssemblyInfoInputs.cache
+U:\solo-feladat\Solo-feladat\Solo-feladat.DAL\obj\Debug\netcoreapp2.2\Solo-feladat.DAL.AssemblyInfo.cs
+U:\solo-feladat\Solo-feladat\Solo-feladat.DAL\bin\Debug\netcoreapp2.2\Solo-feladat.DAL.deps.json
+U:\solo-feladat\Solo-feladat\Solo-feladat.DAL\bin\Debug\netcoreapp2.2\Solo-feladat.DAL.dll
+U:\solo-feladat\Solo-feladat\Solo-feladat.DAL\bin\Debug\netcoreapp2.2\Solo-feladat.DAL.pdb
+U:\solo-feladat\Solo-feladat\Solo-feladat.DAL\bin\Debug\netcoreapp2.2\Solo-feladat.Model.pdb
+U:\solo-feladat\Solo-feladat\Solo-feladat.DAL\obj\Debug\netcoreapp2.2\Solo-feladat.DAL.csproj.CopyComplete
+U:\solo-feladat\Solo-feladat\Solo-feladat.DAL\obj\Debug\netcoreapp2.2\Solo-feladat.DAL.dll
+U:\solo-feladat\Solo-feladat\Solo-feladat.DAL\obj\Debug\netcoreapp2.2\Solo-feladat.DAL.pdb
