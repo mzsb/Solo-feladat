@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28803.452
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Solo-feladat.WebApp", "Solo-feladat.WebApp\Solo-feladat.WebApp.csproj", "{4A4ADF28-194F-47EF-89E9-063AE57C35CC}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Solo-feladat.DAL", "Solo-feladat.DAL\Solo-feladat.DAL.csproj", "{5593CFF1-A437-41B9-B119-EB9D254AFFC1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Solo-feladat.BLL", "Solo-feladat.BLL\Solo-feladat.BLL.csproj", "{0B66A397-193A-4035-AE7C-915C6987DE88}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Solo-feladat.Model", "Solo-feladat.Model\Solo-feladat.Model.csproj", "{3B5D6712-9F65-42C9-8D79-BA4AE0538596}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Solo-feladat.WebApp", "Solo-feladat.WebApp\Solo-feladat.WebApp.csproj", "{786A19C5-3C74-41DB-9CF7-54AF1CD77689}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4A4ADF28-194F-47EF-89E9-063AE57C35CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4A4ADF28-194F-47EF-89E9-063AE57C35CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4A4ADF28-194F-47EF-89E9-063AE57C35CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4A4ADF28-194F-47EF-89E9-063AE57C35CC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5593CFF1-A437-41B9-B119-EB9D254AFFC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5593CFF1-A437-41B9-B119-EB9D254AFFC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5593CFF1-A437-41B9-B119-EB9D254AFFC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +29,10 @@ Global
 		{3B5D6712-9F65-42C9-8D79-BA4AE0538596}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B5D6712-9F65-42C9-8D79-BA4AE0538596}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B5D6712-9F65-42C9-8D79-BA4AE0538596}.Release|Any CPU.Build.0 = Release|Any CPU
+		{786A19C5-3C74-41DB-9CF7-54AF1CD77689}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{786A19C5-3C74-41DB-9CF7-54AF1CD77689}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{786A19C5-3C74-41DB-9CF7-54AF1CD77689}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{786A19C5-3C74-41DB-9CF7-54AF1CD77689}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

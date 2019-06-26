@@ -12,3 +12,7 @@ U:\solo-feladat\Solo-feladat\Solo-feladat.BLL\obj\Debug\netcoreapp2.2\Solo-felad
 U:\solo-feladat\Solo-feladat\Solo-feladat.BLL\obj\Debug\netcoreapp2.2\Solo-feladat.BLL.csproj.CopyComplete
 U:\solo-feladat\Solo-feladat\Solo-feladat.BLL\obj\Debug\netcoreapp2.2\Solo-feladat.BLL.dll
 U:\solo-feladat\Solo-feladat\Solo-feladat.BLL\obj\Debug\netcoreapp2.2\Solo-feladat.BLL.pdb
+U:\solo-feladat\solo-feladat\Solo-feladat.BLL\bin\Debug\netcoreapp2.2\Microsoft.Extensions.Identity.Stores.dll
+U:\solo-feladat\solo-feladat\Solo-feladat.BLL\bin\Debug\netcoreapp2.2\Microsoft.Extensions.Identity.Stores.xml
+U:\solo-feladat\solo-feladat\Solo-feladat.BLL\bin\Debug\netcoreapp2.2\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+U:\solo-feladat\solo-feladat\Solo-feladat.BLL\bin\Debug\netcoreapp2.2\Microsoft.AspNetCore.Identity.EntityFrameworkCore.xml

@@ -4,30 +4,5 @@
     ViewData["Title"] = "Flights";
 }
 
-<h1>Repüléseim</h1>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>Dátum</th>
-            <th>Időtartam</th>
-            <th>Felszállás helye</th>
-            <th>Leszállás helye</th>
-            <th>Státusz</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach(var flight in Model.Flights)
-        {
-        <tr>
-            <td>@Html.DisplayFor(m => flight.Date)</td>
-            <td>-</td>
-            <td>@Html.DisplayFor(m => flight.TakeOfAirport.Name)</td>
-            <td>@Html.DisplayFor(m => flight.LandingAirport.Name)</td>
-            <td>@Html.DisplayFor(m => flight.Status)</td>
-            <td> <a asp-page="FlightDetails" class="btn btn-default">Részletek</a></td>
-        </tr>
-        }
-    </tbody>
-</table>
+    <h1>Repülések</h1>
 

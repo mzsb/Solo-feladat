@@ -14,12 +14,17 @@ namespace Solo_feladat.WebApp.Pages
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.AspNetCore.Mvc.ViewFeatures;
 #line 1 "U:\solo-feladat\solo-feladat\Solo-feladat.WebApp\Pages\_ViewImports.cshtml"
+using Microsoft.AspNetCore.Identity;
+
+#line default
+#line hidden
+#line 2 "U:\solo-feladat\solo-feladat\Solo-feladat.WebApp\Pages\_ViewImports.cshtml"
 using Solo_feladat.WebApp;
 
 #line default
 #line hidden
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"8d9ef66cae123775dcad9aee53e3883f8fd2b9ac", @"/Pages/UploadLog.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"ec389096fc9841cf0b55df0f2ea9bcb941a8d71b", @"/Pages/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"e4769eb2f14f13aa26309f8765113726fbce25f8", @"/Pages/_ViewImports.cshtml")]
     public class Pages_UploadLog : global::Microsoft.AspNetCore.Mvc.RazorPages.Page
     {
         #pragma warning disable 1998

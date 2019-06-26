@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,10 +13,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
-using Solo_feladat.BLL.Interfaces;
-using Solo_feladat.BLL.Managers;
 using Solo_feladat.DAL.Context;
-using Solo_feladat.WebApp.Mapper;
+using Solo_feladat.Model.Models;
 
 namespace Solo_feladat.WebApp
 {
@@ -38,16 +38,21 @@ namespace Solo_feladat.WebApp
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-                 .AddJsonOptions(json =>
-                 json.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
+             .AddJsonOptions(json =>
+             json.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 
             services.AddDbContext<SoloContext>(o =>
                 o.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
 
+            services.AddDefaultIdentity<AppUser>()
+                .AddRoles<IdentityRole<Guid>>()
+                .AddEntityFrameworkStores<SoloContext>();
 
-            services.AddTransient<IPilotManager, PilotManager>();
-
-            services.AddSingleton(AutoMapperConfig.Configure());
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("RequireAdministratorRole",
+                     policy => policy.RequireRole("Administrator"));
+            });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -58,6 +63,7 @@ namespace Solo_feladat.WebApp
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
             }
             else
             {
@@ -69,6 +75,8 @@ namespace Solo_feladat.WebApp
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+
+            app.UseAuthentication();
 
             app.UseMvc();
         }

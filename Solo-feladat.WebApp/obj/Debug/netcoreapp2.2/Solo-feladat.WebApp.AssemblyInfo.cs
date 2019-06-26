@@ -11,6 +11,7 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("aspnet-Solo_feladat.WebApp-A3187E69-4FE0-459B-868D-988114392E1F")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("Solo-feladat.WebApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
