@@ -17,6 +17,8 @@ namespace Solo_feladat.WebApp.Areas.Identity.Pages.Account
         private readonly SignInManager<AppUser> _signInManager;
         private readonly ILogger<LogoutModel> _logger;
 
+        public string Message { get; set; }
+
         public LogoutModel(SignInManager<AppUser> signInManager, ILogger<LogoutModel> logger)
         {
             _signInManager = signInManager;
@@ -31,14 +33,10 @@ namespace Solo_feladat.WebApp.Areas.Identity.Pages.Account
         {
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
-            if (returnUrl != null)
-            {
-                return LocalRedirect(returnUrl);
-            }
-            else
-            {
-                return Page();
-            }
+
+            Message = "You have successfully logged out of the application.";
+
+            return RedirectToPage("./Login");
         }
     }
 }

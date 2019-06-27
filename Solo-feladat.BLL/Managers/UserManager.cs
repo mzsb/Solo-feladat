@@ -20,14 +20,9 @@ namespace Solo_feladat.BLL.Managers
             this.context = context;
         }
 
-        //public async Task<List<AppUser>> GetUsersAsync()
-        //{
-
-        //}
-
-        //public async Task<List<Flight>> GetFlightsByUserIdAsync(Guid UserId)
-        //{
-
-        //}
+        public async Task<List<AppUser>> GetUsersAsync()
+        {
+            return await context.Users.ToListAsync();
+        }
     }
 }

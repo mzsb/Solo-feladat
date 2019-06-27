@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Solo_feladat.WebApp.Pages
 {
-    [Authorize(Policy = "RequireAdministratorRole")]
+    [Authorize(Roles = "Administrator")]
     public class FlightsModel : PageModel
     {
         public void OnGet()

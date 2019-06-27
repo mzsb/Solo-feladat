@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Solo_feladat.Model.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -11,5 +12,6 @@ namespace Solo_feladat.BLL.Dtos
         public float LatitudeCoord { get; set; }
         public float LongitudeCoord { get; set; }
 
+        public ICollection<AirportFlight> AirportFlights { get; set; } = new List<AirportFlight>();
     }
 }

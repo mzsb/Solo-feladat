@@ -1,0 +1,57 @@
+﻿@page
+@model Solo_feladat.WebApp.Pages.FlightDetailsModel
+@using Solo_feladat.Model.Models
+@{
+    ViewData["Title"] = "FlightDetails";
+}
+
+    <h1>Repülés részletes nézete</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <td>Pilóta: @Model.Flight.AppUser.UserName</td>
+            </tr>
+            <tr>
+                <td>Repülés dátuma: @Model.Flight.Date</td>
+            </tr>
+            <tr>
+                <td>Felszállás helye: @Model.Flight.TakeOfAirport.Name</td>
+            </tr>
+            <tr>
+                <td>Leszállás helye: @Model.Flight.LandingAirport.Name</td>
+            </tr>
+            <tr>
+                @if (@Model.Flight.Status.Equals(FlightStatus.Wait))
+                {
+                    <td>Státusz: Elfogadásra vár</td>
+                }
+                else if (@Model.Flight.Status.Equals(FlightStatus.Accepted))
+                {
+                    <td>Státusz: Elfogadva</td>
+                }
+                else if (@Model.Flight.Status.Equals(FlightStatus.Denied))
+                {
+                    <td>Státusz: Elutasítva</td>
+                }
+                else
+                {
+                    <td>Státusz: -</td>
+                }
+            </tr>
+            @if (User.IsInRole("Administrator") && @Model.Flight.Status.Equals(FlightStatus.Wait))
+            {
+                <tr>
+                    <td>
+                        <form asp-page-handler="Accept" asp-route-id="@Model.Flight.Id" method="post">
+                            <button class="btn-light">Elfogad</button>
+                        </form>
+                        <form asp-page-handler="Denied" asp-route-id="@Model.Flight.Id" method="post">
+                            <button class="btn-light">Elutasít</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+

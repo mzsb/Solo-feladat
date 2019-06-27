@@ -17,62 +17,11 @@ namespace Solo_feladat.DAL.Context
         public DbSet<Flight> Flights { get; set; }
         public DbSet<AirportFlight> AirportFlights { get; set; }
         public DbSet<Coordinate> Coordinates { get; set; }
+        public DbSet<AirportFile> AirportFiles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
-            Guid userId = Guid.NewGuid();
-            Guid flightId = Guid.NewGuid();
-            Guid airportId1 = Guid.NewGuid();
-            Guid airportId2 = Guid.NewGuid();
-
-            //modelBuilder.Entity<Pilot>().HasData(
-            //new Pilot
-            //{
-            //    Id = userId,
-            //    Name = "teszt"
-            //});
-
-            //modelBuilder.Entity<Flight>().HasData(
-            //new Flight
-            //{
-            //    Id = flightId,
-            //    AppUserId = userId,
-            //    Date = DateTime.Now,
-            //    Status = FlightStatus.Wait
-            //});
-
-            //modelBuilder.Entity<Airport>().HasData(
-            //new Airport
-            //{
-            //    Id = airportId1,
-            //    AppUserId = "teszt1",
-            //    LatitudeCoord = 0.3f,
-            //    LongitudeCoord= 0.3f
-            //},new Airport
-            //{
-            //    Id = airportId2,
-            //    Name = "teszt2",
-            //    LatitudeCoord = 0.3f,
-            //    LongitudeCoord = 0.3f
-            //});
-
-            //modelBuilder.Entity<AirportFlight>().HasData(
-            //new AirportFlight
-            //{
-            //    Id = Guid.NewGuid(),
-            //    Type = AirportType.Landing,
-            //    FlightId = flightId,
-            //    AirportId = airportId1
-            //},
-            //new AirportFlight
-            //{
-            //    Id = Guid.NewGuid(),
-            //    Type = AirportType.Takeoff,
-            //    FlightId = flightId,
-            //    AirportId = airportId2
-            //});
 
             var airportTypeConverter = new EnumToStringConverter<AirportType>();
             modelBuilder.Entity<AirportFlight>()

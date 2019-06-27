@@ -8,7 +8,6 @@ namespace Solo_feladat.BLL.Interfaces
 {
     public interface IUserManager
     {
-        //Task<List<AppUser>> GetUsersAsync();
-        //Task<List<Flight>> GetFlightsByUserIdAsync(Guid UserId);
+        Task<List<AppUser>> GetUsersAsync();
     }
 }

@@ -75,16 +75,25 @@ namespace Solo_feladat.WebApp.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
-                    if (Input.Email.ToLower().Contains("admin".ToLower()))
+                    if (Input.Email.Split("@")[0].ToLower().Contains("admin".ToLower()))
                     {
                         if (!await _roleManager.RoleExistsAsync("Administrator"))
                         {
-                            var adminRole = new IdentityRole<Guid>();
-                            adminRole.Name = "Administrator";
+                            var adminRole = new IdentityRole<Guid>("Administrator");
                             await _roleManager.CreateAsync(adminRole);
                         }
 
                         await _userManager.AddToRoleAsync(user, "Administrator");
+                    }
+                    else
+                    {
+                        if (!await _roleManager.RoleExistsAsync("Pilot"))
+                        {
+                            var pilotRole = new IdentityRole<Guid>("Pilot");
+                            await _roleManager.CreateAsync(pilotRole);
+                        }
+
+                        await _userManager.AddToRoleAsync(user, "Pilot");
                     }
 
                     _logger.LogInformation("User created a new account with password.");
@@ -100,7 +109,7 @@ namespace Solo_feladat.WebApp.Areas.Identity.Pages.Account
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    return LocalRedirect(returnUrl);
+                    return RedirectToPage("/PilotFlights");
                 }
                 foreach (var error in result.Errors)
                 {

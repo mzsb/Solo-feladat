@@ -146,6 +146,18 @@ namespace Solo_feladat.DAL.Migrations
                     b.ToTable("Airports");
                 });
 
+            modelBuilder.Entity("Solo_feladat.Model.Models.AirportFile", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<byte[]>("File");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AirportFiles");
+                });
+
             modelBuilder.Entity("Solo_feladat.Model.Models.AirportFlight", b =>
                 {
                     b.Property<Guid>("Id")

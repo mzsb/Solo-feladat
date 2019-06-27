@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Solo_feladat.BLL.Dtos
+namespace Solo_feladat.Model.Models
 {
-    public class Pilot
+    public class AirportFile
     {
         public Guid Id { get; set; }
-        public string Name { get; set; }
+        public byte[] File { get; set; }
     }
 }

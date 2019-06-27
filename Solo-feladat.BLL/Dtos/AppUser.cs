@@ -4,8 +4,9 @@ using System.Text;
 
 namespace Solo_feladat.BLL.Dtos
 {
-    public class Administrator
+    public class AppUser
     {
         public Guid Id { get; set; }
+        public string UserName { get; set; }
     }
 }

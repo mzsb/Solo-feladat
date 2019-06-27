@@ -9,6 +9,6 @@ namespace Solo_feladat.Model.Models
     {
         Wait,
         Accepted,
-        Rejected
+        Denied
     }
 }

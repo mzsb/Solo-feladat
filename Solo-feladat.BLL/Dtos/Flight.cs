@@ -8,8 +8,8 @@ namespace Solo_feladat.BLL.Dtos
     public class Flight
     {
         public Guid Id { get; set; }
-        public Guid PilotId { get; set; }
-        public Pilot Pilot { get; set; }
+        public Guid AppUserId { get; set; }
+        public AppUser AppUser { get; set; }
 
         public Airport TakeOfAirport { get; set; }
         public Airport LandingAirport { get; set; }

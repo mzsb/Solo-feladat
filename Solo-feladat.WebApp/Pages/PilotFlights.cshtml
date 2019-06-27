@@ -1,8 +1,50 @@
 ﻿@page
 @model Solo_feladat.WebApp.Pages.PilotFlightsModel
+@using Solo_feladat.Model.Models
 @{
     ViewData["Title"] = "PilotFlights";
 }
 
 <h1>Repüléseim</h1>
 
+<table class="table">
+    <thead>
+        <tr>
+            <th>Dátum</th>
+            <th>Időtartam</th>
+            <th>Felszállás helye</th>
+            <th>Leszállás helye</th>
+            <th>Státusz</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var flight in Model.Flights)
+        {
+            <tr>
+                <td>@Html.DisplayFor(m => flight.Date)</td>
+                <td>-</td>
+                <td>@Html.DisplayFor(m => flight.TakeOfAirport.Name)</td>
+                <td>@Html.DisplayFor(m => flight.LandingAirport.Name)</td>
+
+                @if (@flight.Status.Equals(FlightStatus.Wait))
+                {
+                    <td>Elfogadásra vár</td>
+                }
+                else if (@flight.Status.Equals(FlightStatus.Accepted))
+                {
+                    <td>Elfogadva</td>
+                }
+                else if (@flight.Status.Equals(FlightStatus.Denied))
+                {
+                    <td>Elutasítva</td>
+                }
+                else
+                {
+                    <td>-</td>
+                }
+
+                <td> <a asp-page="FlightDetails" asp-route-id="@flight.Id" class="btn btn-default">Részletek</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

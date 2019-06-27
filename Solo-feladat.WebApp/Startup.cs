@@ -15,6 +15,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Solo_feladat.DAL.Context;
 using Solo_feladat.Model.Models;
+using Solo_feladat.BLL.Interfaces;
+using Solo_feladat.BLL.Managers;
+using Solo_feladat.WebApp.Mapper;
 
 namespace Solo_feladat.WebApp
 {
@@ -48,11 +51,11 @@ namespace Solo_feladat.WebApp
                 .AddRoles<IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<SoloContext>();
 
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("RequireAdministratorRole",
-                     policy => policy.RequireRole("Administrator"));
-            });
+            services.AddTransient<IFlightManager, FlightManager>();
+
+            services.AddTransient<IAirportManager, AirportManager>();
+
+            services.AddSingleton(AutoMapperConfig.Configure());
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
