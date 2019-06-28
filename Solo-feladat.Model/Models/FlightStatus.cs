@@ -4,7 +4,6 @@ using System.Text;
 
 namespace Solo_feladat.Model.Models
 {
-    [Flags]
     public enum FlightStatus
     {
         Wait,

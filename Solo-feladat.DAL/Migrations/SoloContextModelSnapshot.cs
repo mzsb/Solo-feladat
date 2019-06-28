@@ -135,27 +135,11 @@ namespace Solo_feladat.DAL.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<float>("LatitudeCoord");
-
-                    b.Property<float>("LongitudeCoord");
-
                     b.Property<string>("Name");
 
                     b.HasKey("Id");
 
                     b.ToTable("Airports");
-                });
-
-            modelBuilder.Entity("Solo_feladat.Model.Models.AirportFile", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<byte[]>("File");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AirportFiles");
                 });
 
             modelBuilder.Entity("Solo_feladat.Model.Models.AirportFlight", b =>
@@ -235,7 +219,9 @@ namespace Solo_feladat.DAL.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid>("FlightId");
+                    b.Property<Guid?>("AirportId");
+
+                    b.Property<Guid?>("FlightId");
 
                     b.Property<float>("LatitudeCoord");
 
@@ -243,9 +229,32 @@ namespace Solo_feladat.DAL.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AirportId")
+                        .IsUnique()
+                        .HasFilter("[AirportId] IS NOT NULL");
+
                     b.HasIndex("FlightId");
 
                     b.ToTable("Coordinates");
+                });
+
+            modelBuilder.Entity("Solo_feladat.Model.Models.File", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid>("AppUserId");
+
+                    b.Property<byte[]>("Data");
+
+                    b.Property<string>("Type")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.ToTable("Files");
                 });
 
             modelBuilder.Entity("Solo_feladat.Model.Models.Flight", b =>
@@ -327,9 +336,21 @@ namespace Solo_feladat.DAL.Migrations
 
             modelBuilder.Entity("Solo_feladat.Model.Models.Coordinate", b =>
                 {
+                    b.HasOne("Solo_feladat.Model.Models.Airport", "Airport")
+                        .WithOne("Coordinate")
+                        .HasForeignKey("Solo_feladat.Model.Models.Coordinate", "AirportId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("Solo_feladat.Model.Models.Flight", "Flight")
                         .WithMany("Coordinates")
-                        .HasForeignKey("FlightId")
+                        .HasForeignKey("FlightId");
+                });
+
+            modelBuilder.Entity("Solo_feladat.Model.Models.File", b =>
+                {
+                    b.HasOne("Solo_feladat.Model.Models.AppUser", "AppUser")
+                        .WithMany("Files")
+                        .HasForeignKey("AppUserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

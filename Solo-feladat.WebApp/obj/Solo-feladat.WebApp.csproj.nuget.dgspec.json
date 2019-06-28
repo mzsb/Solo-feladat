@@ -225,6 +225,18 @@
               "target": "Package",
               "version": "[6.1.1, )"
             },
+            "Hangfire.AspNetCore": {
+              "target": "Package",
+              "version": "[1.7.3, )"
+            },
+            "Hangfire.Core": {
+              "target": "Package",
+              "version": "[1.7.3, )"
+            },
+            "Hangfire.SqlServer": {
+              "target": "Package",
+              "version": "[1.7.3, )"
+            },
             "Microsoft.AspNet.Identity.Core": {
               "target": "Package",
               "version": "[2.2.2, )"

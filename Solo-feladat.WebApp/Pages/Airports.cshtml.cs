@@ -4,58 +4,68 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Solo_feladat.BLL.Dtos;
 using Solo_feladat.BLL.Interfaces;
+using Solo_feladat.Model.Models;
+using Solo_feladat.WebApp.Jobs;
+using Solo_feladat.WebApp.Helper;
 
 namespace Solo_feladat.WebApp.Pages
 {
     [Authorize(Roles = "Administrator")]
     public class AirportsModel : PageModel
     {
-        private readonly IAirportManager airportManager;
+        private readonly IFileManager fileManager;
         private IMapper mapper;
+        private IFileProcessJob fileProcessJob;
 
-        public AirportsModel(IAirportManager airportManager, IMapper mapper)
+        public string Message { get; set; }
+
+        [BindProperty]
+        public bool ShowMessage => !string.IsNullOrEmpty(Message);
+
+        public AirportsModel(IFileManager fileManager, IMapper mapper, IFileProcessJob fileProcessJob)
         {
-            this.airportManager = airportManager;
+            this.fileManager = fileManager;
             this.mapper = mapper;
+            this.fileProcessJob = fileProcessJob;
         }
 
-        public void OnGet()
+        public async Task<ActionResult> OnPostUploadFile(List<IFormFile> formFiles)
         {
-
-        }
-        public async Task<ActionResult> OnPostUploadFile(List<IFormFile> files)
-        {
-            var filePath = Path.GetTempFileName();
-
-            List<AirportFile> airportFiles = new List<AirportFile>();
-
-            foreach (var formFile in files)
+            foreach (var ff in formFiles)
             {
-                if (formFile.Length > 0 && formFile.FileName.Split('.').Last().Equals("xlsx"))
+                if (!ff.FileName.Split('.').Last().Equals("xlsx"))
                 {
-                    using (var memoryStream = new MemoryStream())
-                    {
-                        await formFile.CopyToAsync(memoryStream);
-                        airportFiles.Add(
-                        new AirportFile
-                        {
-                            File = memoryStream.ToArray()
-                        });
-                    }
+                    Message = "Csak Excel-fájl tölthető fel";
+                    return Page();
                 }
             }
 
+            var airportFiles = new List<Solo_feladat.BLL.Dtos.File>();
+
+            await airportFiles.ConvertIFormFiles(formFiles, Guid.Parse(User.Identity.GetUserId()), FileType.Airport);
+
             if (airportFiles.Count > 0)
             {
-                var mapped = mapper.Map<List<Solo_feladat.Model.Models.AirportFile>>(airportFiles);
+                var mapped = mapper.Map<List<Solo_feladat.Model.Models.File>>(airportFiles);
 
-                await airportManager.InsertAirportFilesAsync(mapped);
+                bool result = await fileManager.InsertFilesAsync(mapped);
+
+                if (result)
+                {
+                    fileProcessJob.Execute();
+                    Message = "Sikeres fájlfeltöltés";
+                }
+                else
+                {
+                    Message = "Sikertelen fájlfeltöltés";
+                }
             }
             return Page();
         }

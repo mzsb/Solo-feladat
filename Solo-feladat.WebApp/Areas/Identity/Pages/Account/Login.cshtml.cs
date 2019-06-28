@@ -19,10 +19,6 @@ namespace Solo_feladat.WebApp.Areas.Identity.Pages.Account
         private readonly SignInManager<AppUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
 
-        [TempData]
-        public string Message { get; set; }
-
-        public bool ShowMessage => !string.IsNullOrEmpty(Message);
 
         public LoginModel(SignInManager<AppUser> signInManager, ILogger<LoginModel> logger)
         {

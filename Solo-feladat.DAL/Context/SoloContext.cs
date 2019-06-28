@@ -17,11 +17,16 @@ namespace Solo_feladat.DAL.Context
         public DbSet<Flight> Flights { get; set; }
         public DbSet<AirportFlight> AirportFlights { get; set; }
         public DbSet<Coordinate> Coordinates { get; set; }
-        public DbSet<AirportFile> AirportFiles { get; set; }
+        public DbSet<File> Files { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Airport>()
+            .HasOne(a => a.Coordinate)
+            .WithOne(c => c.Airport)
+            .OnDelete(DeleteBehavior.Cascade);
 
             var airportTypeConverter = new EnumToStringConverter<AirportType>();
             modelBuilder.Entity<AirportFlight>()
@@ -32,6 +37,11 @@ namespace Solo_feladat.DAL.Context
             modelBuilder.Entity<Flight>()
                         .Property(f => f.Status)
                         .HasConversion(flightStatusConverter);
+
+            var fileTypeConverter = new EnumToStringConverter<FileType>();
+            modelBuilder.Entity<File>()
+                        .Property(f => f.Type)
+                        .HasConversion(fileTypeConverter);
         }
     }
 }

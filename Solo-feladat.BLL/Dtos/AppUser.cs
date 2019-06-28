@@ -8,5 +8,7 @@ namespace Solo_feladat.BLL.Dtos
     {
         public Guid Id { get; set; }
         public string UserName { get; set; }
+
+        public ICollection<Flight> Flights { get; set; } = new List<Flight>();
     }
 }

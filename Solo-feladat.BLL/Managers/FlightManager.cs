@@ -52,6 +52,7 @@ namespace Solo_feladat.BLL.Managers
         {
             context.Attach(flight).State = EntityState.Modified;
 
+            //Mappeleskor duplikalodna
             foreach (var dl in context.AirportFlights.Where(af => af.FlightId.Equals(flight.Id)))
             {
                 context.AirportFlights.Remove(dl);
