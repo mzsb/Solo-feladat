@@ -12,27 +12,27 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Solo_feladat.BLL.Interfaces;
 using Solo_feladat.Model.Models;
 using Solo_feladat.WebApp.Jobs;
-using Solo_feladat.WebApp.Helper;
+using Solo_feladat.WebApp.Jobs.Interfaces;
 
 namespace Solo_feladat.WebApp.Pages
 {
     [Authorize(Roles = "Pilot, Administrator")]
     public class UploadLogModel : PageModel
     {
-        private readonly IFileManager fileManager;
+        private readonly ILogFileManager logFileManager;
         private IMapper mapper;
-        private IFileProcessJob fileProcessJob;
+        private ILogFileProcessJob logFileProcessJob;
 
         public string Message { get; set; }
 
         [BindProperty]
         public bool ShowMessage => !string.IsNullOrEmpty(Message);
 
-        public UploadLogModel(IFileManager fileManager, IMapper mapper, IFileProcessJob fileProcessJob)
+        public UploadLogModel(ILogFileManager logFileManager, IMapper mapper, ILogFileProcessJob logFileProcessJob)
         {
-            this.fileManager = fileManager;
+            this.logFileManager = logFileManager;
             this.mapper = mapper;
-            this.fileProcessJob = fileProcessJob;
+            this.logFileProcessJob = logFileProcessJob;
         }
 
         public async Task<ActionResult> OnPostUploadFile(List<IFormFile> formFiles)
@@ -46,19 +46,26 @@ namespace Solo_feladat.WebApp.Pages
                 }
             }
 
-            var logFiles = new List<Solo_feladat.BLL.Dtos.File>();
+            var logFiles = await logFileManager.ConvertIFormFiles(formFiles);
 
-            await logFiles.ConvertIFormFiles(formFiles, Guid.Parse(User.Identity.GetUserId()), FileType.Log);
+            Guid AppUserid = Guid.Parse(User.Identity.GetUserId());
+            FileType fileType = FileType.Log;
+
+            foreach (var af in logFiles)
+            {
+                af.AppUserId = AppUserid;
+                af.Type = fileType;
+            }
 
             if (logFiles.Count > 0)
             {
-                var mapped = mapper.Map<List<Solo_feladat.Model.Models.File>>(logFiles);
+                var mapped = mapper.Map<List<Model.Models.File>>(logFiles);
 
-                bool result = await fileManager.InsertFilesAsync(mapped);
+                bool result = await logFileManager.InsertFilesAsync(mapped);
 
                 if (result)
                 {
-                    fileProcessJob.Execute();
+                    logFileProcessJob.Execute();
                     Message = "Sikeres fájlfeltöltés";
                 }
                 else

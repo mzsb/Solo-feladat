@@ -9,6 +9,7 @@ namespace Solo_feladat.Model.Models
         public Guid Id { get; set; }
         public Guid AppUserId { get; set; }
         public AppUser AppUser { get; set; }
+
         public FileType Type { get; set; }
         public byte[] Data { get; set; }
     }

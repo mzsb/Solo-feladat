@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using OfficeOpenXml;
 using Solo_feladat.BLL.Interfaces;
 using Solo_feladat.DAL.Context;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Solo_feladat.BLL.Managers
 {
-    public class FileManager : IFileManager
+    public abstract class FileManager : IFileManager
     {
         private readonly SoloContext context;
 
@@ -20,6 +21,8 @@ namespace Solo_feladat.BLL.Managers
         {
             this.context = context;
         }
+
+        public abstract void ProcessFile(Model.Models.File file);
 
         public async Task<bool> InsertFilesAsync(List<Solo_feladat.Model.Models.File> files)
         {
@@ -37,19 +40,15 @@ namespace Solo_feladat.BLL.Managers
 
             if (files.Count > 0)
             {
+                var airportFileManager = new AirportFileManager(context);
+                var logFileManager = new LogFileManager(context);
+
                 foreach (var f in files)
                 {
-                    if (f.Type.Equals(FileType.Airport))
-                    {
-                        ProcessAirportFile(f);
-                    }
-                    else if (f.Type.Equals(FileType.Log))
-                    {
-                        ProcessLogFile(f);
-                    }
+                    ProcessFile(f);
                 }
 
-                if(context.SaveChanges() > 0)
+                if (context.SaveChanges() > 0)
                 {
                     foreach (var f in context.Files)
                     {
@@ -61,95 +60,28 @@ namespace Solo_feladat.BLL.Managers
             }
         }
 
-
-        /* Excel feldolgozas */
-
-        private void ProcessAirportFile(Solo_feladat.Model.Models.File file)
+        public async Task<List<Dtos.File>> ConvertIFormFiles(List<IFormFile> formFiles)
         {
-            var excelData = GetExcelDataFromFile(file);
+            List<Dtos.File> files = new List<Dtos.File>();
 
-            var airports = GetAirportsFromExcelData(excelData);
-
-            foreach (var a in airports)
+            foreach (var formFile in formFiles)
             {
-                if (!context.Airports.Select(ai => ai.Name).Contains(a.Name))
-                    context.Airports.AddAsync(a);
-            }
-        }
-
-        private List<List<String>> GetExcelDataFromFile(Solo_feladat.Model.Models.File file)
-        {
-            List<List<string>> excelData = new List<List<string>>();
-
-            using (MemoryStream stream = new MemoryStream(file.Data))
-            using (ExcelPackage excelPackage = new ExcelPackage(stream))
-            {
-                foreach (ExcelWorksheet worksheet in excelPackage.Workbook.Worksheets)
+                if (formFile.Length > 0)
                 {
-                    for (int i = worksheet.Dimension.Start.Row; i <= worksheet.Dimension.End.Row; i++)
+                    using (var memoryStream = new MemoryStream())
                     {
-                        List<string> rowData = new List<string>();
+                        await formFile.CopyToAsync(memoryStream);
 
-                        for (int j = worksheet.Dimension.Start.Column; j <= worksheet.Dimension.End.Column; j++)
+                        files.Add(
+                        new Dtos.File
                         {
-                            if (worksheet.Cells[i, j].Value != null)
-                            {
-                                rowData.Add(worksheet.Cells[i, j].Value.ToString());
-                            }
-                        }
-
-                        excelData.Add(rowData);
+                            Data = memoryStream.ToArray(),
+                        });
                     }
                 }
             }
 
-            return excelData;
+            return files;
         }
-
-        private List<Airport> GetAirportsFromExcelData(List<List<string>> excelData)
-        {
-            List<Airport> airports = new List<Airport>();
-
-            //Fejlec eltavolitasa
-            excelData.RemoveAt(0);
-
-            foreach (var i in excelData)
-            {
-                airports.Add(
-                    new Airport
-                    {
-                        Name = i[0],
-                        Coordinate = new Coordinate
-                        {
-                            LatitudeCoord = float.Parse(i[1]),
-                            LongitudeCoord = float.Parse(i[2])
-                        }
-                    }
-                );
-            }
-
-            return airports;
-        }
-
-
-        /* Log feldolgozas */
-
-        private void ProcessLogFile(Solo_feladat.Model.Models.File file)
-        {
-            string logData = Encoding.UTF8.GetString(file.Data);
-
-            List<string> log = logData.Split("\r\n").ToList();
-
-            Flight flight = new Flight();
-
-            flight.Date = EncodeDate(log.ElementAt(1));
-        }
-
-        private DateTime EncodeDate(string row)
-        {
-            return DateTime.Now;
-        }
-
-
     }
 }

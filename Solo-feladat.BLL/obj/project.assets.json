@@ -5963,11 +5963,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "U:\\solo-feladat\\solo-feladat\\Solo-feladat.BLL\\Solo-feladat.BLL.csproj",
+      "projectUniqueName": "C:\\Users\\mozs.barnabas\\Solo_feladat\\Solo-feladat\\Solo-feladat.BLL\\Solo-feladat.BLL.csproj",
       "projectName": "Solo-feladat.BLL",
-      "projectPath": "U:\\solo-feladat\\solo-feladat\\Solo-feladat.BLL\\Solo-feladat.BLL.csproj",
+      "projectPath": "C:\\Users\\mozs.barnabas\\Solo_feladat\\Solo-feladat\\Solo-feladat.BLL\\Solo-feladat.BLL.csproj",
       "packagesPath": "C:\\Users\\mozs.barnabas\\.nuget\\packages\\",
-      "outputPath": "U:\\solo-feladat\\solo-feladat\\Solo-feladat.BLL\\obj\\",
+      "outputPath": "C:\\Users\\mozs.barnabas\\Solo_feladat\\Solo-feladat\\Solo-feladat.BLL\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -5986,8 +5986,8 @@
       "frameworks": {
         "netcoreapp2.2": {
           "projectReferences": {
-            "U:\\solo-feladat\\solo-feladat\\Solo-feladat.DAL\\Solo-feladat.DAL.csproj": {
-              "projectPath": "U:\\solo-feladat\\solo-feladat\\Solo-feladat.DAL\\Solo-feladat.DAL.csproj"
+            "C:\\Users\\mozs.barnabas\\Solo_feladat\\Solo-feladat\\Solo-feladat.DAL\\Solo-feladat.DAL.csproj": {
+              "projectPath": "C:\\Users\\mozs.barnabas\\Solo_feladat\\Solo-feladat\\Solo-feladat.DAL\\Solo-feladat.DAL.csproj"
             }
           }
         }

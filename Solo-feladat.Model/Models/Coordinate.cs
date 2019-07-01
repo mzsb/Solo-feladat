@@ -12,7 +12,7 @@ namespace Solo_feladat.Model.Models
         public Guid? AirportId { get; set; }
         public Airport Airport { get; set; }
 
-        public float LatitudeCoord { get; set; }
-        public float LongitudeCoord { get; set; }
+        public double LatitudeCoord { get; set; }
+        public double LongitudeCoord { get; set; }
     }
 }

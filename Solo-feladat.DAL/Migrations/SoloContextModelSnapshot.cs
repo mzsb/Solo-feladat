@@ -223,9 +223,9 @@ namespace Solo_feladat.DAL.Migrations
 
                     b.Property<Guid?>("FlightId");
 
-                    b.Property<float>("LatitudeCoord");
+                    b.Property<double>("LatitudeCoord");
 
-                    b.Property<float>("LongitudeCoord");
+                    b.Property<double>("LongitudeCoord");
 
                     b.HasKey("Id");
 
@@ -265,6 +265,8 @@ namespace Solo_feladat.DAL.Migrations
                     b.Property<Guid>("AppUserId");
 
                     b.Property<DateTime>("Date");
+
+                    b.Property<TimeSpan>("Duration");
 
                     b.Property<string>("Status")
                         .IsRequired();

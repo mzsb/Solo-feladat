@@ -6,6 +6,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20190701122353_Airport_Coordinate_1.cs" />
+    <Compile Remove="Migrations\20190701122353_Airport_Coordinate_1.Designer.cs" />
+    <Compile Remove="Migrations\20190701122713_Airport_Coordinate_1.cs" />
+    <Compile Remove="Migrations\20190701122713_Airport_Coordinate_1.Designer.cs" />
+    <Compile Remove="Migrations\20190701133844_Airport_Coordinate_Delete.cs" />
+    <Compile Remove="Migrations\20190701133844_Airport_Coordinate_Delete.Designer.cs" />
+    <Compile Remove="Migrations\20190701133942_Airport_Coordinate_Delete.cs" />
+    <Compile Remove="Migrations\20190701133942_Airport_Coordinate_Delete.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.4" />
   </ItemGroup>
 

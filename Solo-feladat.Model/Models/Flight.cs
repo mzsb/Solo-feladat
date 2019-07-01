@@ -12,6 +12,7 @@ namespace Solo_feladat.Model.Models
 
         public DateTime Date { get; set; }
         public FlightStatus Status { get; set; }
+        public TimeSpan Duration { get; set; }
 
         public ICollection<AirportFlight> AirportFlights { get; set; } = new List<AirportFlight>();
 

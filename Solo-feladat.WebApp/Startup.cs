@@ -21,6 +21,7 @@ using Solo_feladat.WebApp.Mapper;
 using Hangfire;
 using Hangfire.SqlServer;
 using Solo_feladat.WebApp.Jobs;
+using Solo_feladat.WebApp.Jobs.Interfaces;
 
 namespace Solo_feladat.WebApp
 {
@@ -56,9 +57,13 @@ namespace Solo_feladat.WebApp
 
             services.AddTransient<IFlightManager, FlightManager>();
 
-            services.AddTransient<IFileManager, FileManager>();
+            services.AddTransient<IAirportFileManager, AirportFileManager>();
 
-            services.AddTransient<IFileProcessJob, FileProcessJob>();
+            services.AddTransient<ILogFileManager, LogFileManager>();
+
+            services.AddTransient<IAirportFileProcessJob, AirportFileProcessJob>();
+
+            services.AddTransient<ILogFileProcessJob, LogFileProcessJob>();
 
             services.AddSingleton(AutoMapperConfig.Configure());
 

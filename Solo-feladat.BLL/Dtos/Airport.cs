@@ -8,6 +8,7 @@ namespace Solo_feladat.BLL.Dtos
     public class Airport
     {
         public Guid Id { get; set; }
+
         public string Name { get; set; }
         public Coordinate Coordinate { get; set; }
 

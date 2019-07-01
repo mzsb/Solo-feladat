@@ -692,11 +692,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "U:\\solo-feladat\\Solo-feladat\\Solo-feladat.Model\\Solo-feladat.Model.csproj",
+      "projectUniqueName": "C:\\Users\\mozs.barnabas\\Solo_feladat\\Solo-feladat\\Solo-feladat.Model\\Solo-feladat.Model.csproj",
       "projectName": "Solo-feladat.Model",
-      "projectPath": "U:\\solo-feladat\\Solo-feladat\\Solo-feladat.Model\\Solo-feladat.Model.csproj",
+      "projectPath": "C:\\Users\\mozs.barnabas\\Solo_feladat\\Solo-feladat\\Solo-feladat.Model\\Solo-feladat.Model.csproj",
       "packagesPath": "C:\\Users\\mozs.barnabas\\.nuget\\packages\\",
-      "outputPath": "U:\\solo-feladat\\Solo-feladat\\Solo-feladat.Model\\obj\\",
+      "outputPath": "C:\\Users\\mozs.barnabas\\Solo_feladat\\Solo-feladat\\Solo-feladat.Model\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\dotnet\\sdk\\NuGetFallbackFolder"

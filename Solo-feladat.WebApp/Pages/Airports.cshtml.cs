@@ -13,27 +13,26 @@ using Solo_feladat.BLL.Dtos;
 using Solo_feladat.BLL.Interfaces;
 using Solo_feladat.Model.Models;
 using Solo_feladat.WebApp.Jobs;
-using Solo_feladat.WebApp.Helper;
 
 namespace Solo_feladat.WebApp.Pages
 {
     [Authorize(Roles = "Administrator")]
     public class AirportsModel : PageModel
     {
-        private readonly IFileManager fileManager;
+        private readonly IAirportFileManager airportFileManager;
         private IMapper mapper;
-        private IFileProcessJob fileProcessJob;
+        private IAirportFileProcessJob airportFileProcessJob;
 
         public string Message { get; set; }
 
         [BindProperty]
         public bool ShowMessage => !string.IsNullOrEmpty(Message);
 
-        public AirportsModel(IFileManager fileManager, IMapper mapper, IFileProcessJob fileProcessJob)
+        public AirportsModel(IAirportFileManager airportFileManager, IMapper mapper, IAirportFileProcessJob airportFileProcessJob)
         {
-            this.fileManager = fileManager;
+            this.airportFileManager = airportFileManager;
             this.mapper = mapper;
-            this.fileProcessJob = fileProcessJob;
+            this.airportFileProcessJob = airportFileProcessJob;
         }
 
         public async Task<ActionResult> OnPostUploadFile(List<IFormFile> formFiles)
@@ -47,19 +46,26 @@ namespace Solo_feladat.WebApp.Pages
                 }
             }
 
-            var airportFiles = new List<Solo_feladat.BLL.Dtos.File>();
+            var airportFiles = await airportFileManager.ConvertIFormFiles(formFiles);
 
-            await airportFiles.ConvertIFormFiles(formFiles, Guid.Parse(User.Identity.GetUserId()), FileType.Airport);
+            Guid AppUserid = Guid.Parse(User.Identity.GetUserId());
+            FileType fileType = FileType.Airport;
+
+            foreach (var af in airportFiles)
+            {
+                af.AppUserId = AppUserid;
+                af.Type = fileType;
+            }
 
             if (airportFiles.Count > 0)
             {
-                var mapped = mapper.Map<List<Solo_feladat.Model.Models.File>>(airportFiles);
+                var mapped = mapper.Map<List<Model.Models.File>>(airportFiles);
 
-                bool result = await fileManager.InsertFilesAsync(mapped);
+                bool result = await airportFileManager.InsertFilesAsync(mapped);
 
                 if (result)
                 {
-                    fileProcessJob.Execute();
+                    airportFileProcessJob.Execute();
                     Message = "Sikeres fájlfeltöltés";
                 }
                 else
