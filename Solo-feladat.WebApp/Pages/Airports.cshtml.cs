@@ -21,18 +21,16 @@ namespace Solo_feladat.WebApp.Pages
     {
         private readonly IAirportFileManager airportFileManager;
         private IMapper mapper;
-        private IAirportFileProcessJob airportFileProcessJob;
 
         public string Message { get; set; }
 
         [BindProperty]
         public bool ShowMessage => !string.IsNullOrEmpty(Message);
 
-        public AirportsModel(IAirportFileManager airportFileManager, IMapper mapper, IAirportFileProcessJob airportFileProcessJob)
+        public AirportsModel(IAirportFileManager airportFileManager, IMapper mapper)
         {
             this.airportFileManager = airportFileManager;
             this.mapper = mapper;
-            this.airportFileProcessJob = airportFileProcessJob;
         }
 
         public async Task<ActionResult> OnPostUploadFile(List<IFormFile> formFiles)
@@ -63,15 +61,7 @@ namespace Solo_feladat.WebApp.Pages
 
                 bool result = await airportFileManager.InsertFilesAsync(mapped);
 
-                if (result)
-                {
-                    airportFileProcessJob.Execute();
-                    Message = "Sikeres fájlfeltöltés";
-                }
-                else
-                {
-                    Message = "Sikertelen fájlfeltöltés";
-                }
+                Message = result ? "Sikeres" : "Sikertelen" + " fájlfeltöltés";
             }
             return Page();
         }

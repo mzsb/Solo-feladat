@@ -52,8 +52,8 @@ namespace Solo_feladat.WebApp
                 o.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
 
             services.AddDefaultIdentity<AppUser>()
-                .AddRoles<IdentityRole<Guid>>()
-                .AddEntityFrameworkStores<SoloContext>();
+                    .AddRoles<IdentityRole<Guid>>()
+                    .AddEntityFrameworkStores<SoloContext>();
 
             services.AddTransient<IFlightManager, FlightManager>();
 
@@ -87,7 +87,7 @@ namespace Solo_feladat.WebApp
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IBackgroundJobClient backgroundJobs, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IAirportFileProcessJob airportFileProcessJob, ILogFileProcessJob logFileProcessJob)
         {
             if (env.IsDevelopment())
             {
@@ -108,7 +108,9 @@ namespace Solo_feladat.WebApp
             app.UseAuthentication();
 
             app.UseHangfireDashboard();
-            backgroundJobs.Enqueue(() => Console.WriteLine("Hello world from Hangfire!"));
+
+            airportFileProcessJob.Execute();
+            logFileProcessJob.Execute();
 
             app.UseMvc();
         }

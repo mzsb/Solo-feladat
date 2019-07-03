@@ -1,8 +1,56 @@
 ﻿@page
 @model Solo_feladat.WebApp.Pages.FlightsModel
+@using Solo_feladat.Model.Models
 @{
     ViewData["Title"] = "Flights";
 }
 
-    <h1>Repülések</h1>
+<h1>Repülések</h1>
 
+<form action="" method="post" style="margin-top: 50px">
+    <select asp-for="@Model.Status" class="form-control" asp-items="@Model.Statuses" onchange="this.form.submit();"></select>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Pilóta</th>
+            <th>Dátum</th>
+            <th>Időtartam</th>
+            <th>Felszállás helye</th>
+            <th>Leszállás helye</th>
+            <th>Státusz</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var flight in Model.Flights)
+        {
+            <tr>
+                <td>@flight.AppUser.UserName</td>
+                <td>@flight.Date.ToShortDateString()</td>
+                <td>@flight.Duration</td>
+                <td>@flight.TakeOfAirport.Name</td>
+                <td>@flight.LandingAirport.Name</td>
+
+                @if (@flight.Status.Equals(FlightStatus.Wait))
+                {
+                    <td>Elfogadásra vár</td>
+                }
+                else if (@flight.Status.Equals(FlightStatus.Accepted))
+                {
+                    <td>Elfogadva</td>
+                }
+                else if (@flight.Status.Equals(FlightStatus.Denied))
+                {
+                    <td>Elutasítva</td>
+                }
+                else
+                {
+                    <td>-</td>
+                }
+
+                <td> <a asp-page="FlightDetails" asp-route-id="@flight.Id" class="btn btn-default">Részletek</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

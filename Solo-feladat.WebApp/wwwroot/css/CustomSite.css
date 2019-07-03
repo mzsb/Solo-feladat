@@ -1,0 +1,24 @@
+﻿
+
+table {
+    margin-top: 50px;
+}
+
+.form-valid {
+    display: inline-block;
+    margin-right: 25px;
+}
+
+.form-upload {
+    margin-top: 50px;
+}
+
+.btn-valid {
+    width: 120px;
+    background-color: deepskyblue;
+    color: white;
+}
+
+.nav-item{
+    margin-left:20px
+}

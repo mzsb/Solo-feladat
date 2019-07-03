@@ -28,6 +28,11 @@ namespace Solo_feladat.DAL.Context
                         .WithOne(c => c.Airport)
                         .OnDelete(DeleteBehavior.Cascade);
 
+            modelBuilder.Entity<Flight>()
+                        .HasMany(f => f.Coordinates)
+                        .WithOne(c => c.Flight)
+                        .OnDelete(DeleteBehavior.Cascade);
+
             var airportTypeConverter = new EnumToStringConverter<AirportType>();
             modelBuilder.Entity<AirportFlight>()
                         .Property(af => af.Type)

@@ -1,57 +1,112 @@
 ﻿@page
 @model Solo_feladat.WebApp.Pages.FlightDetailsModel
 @using Solo_feladat.Model.Models
+@using  Microsoft.AspNetCore.Mvc.Formatters
 @{
     ViewData["Title"] = "FlightDetails";
 }
 
-    <h1>Repülés részletes nézete</h1>
+<h1>Repülés részletes nézete</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <td>Pilóta: @Model.Flight.AppUser.UserName</td>
-            </tr>
-            <tr>
-                <td>Repülés dátuma: @Model.Flight.Date</td>
-            </tr>
-            <tr>
-                <td>Felszállás helye: @Model.Flight.TakeOfAirport.Name</td>
-            </tr>
-            <tr>
-                <td>Leszállás helye: @Model.Flight.LandingAirport.Name</td>
-            </tr>
-            <tr>
-                @if (@Model.Flight.Status.Equals(FlightStatus.Wait))
+@section Scripts {
+    <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfScz_Xx3Hx8xpyp0zdmr3daOmtHEd5fc"></script>
+    <script type="text/javascript">
+        function initMap() {
+            var latlng = new google.maps.LatLng(@Html.Raw(Json.Serialize(Model.Coordinates[0].LatitudeCoord)),
+                                                @Html.Raw(Json.Serialize(Model.Coordinates[0].LongitudeCoord)));
+            var options = { zoom: 10, center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP};
+            var map = new google.maps.Map(document.getElementById
+                ("map_canvas"), options);
+
+            var flightPlanCoordinates = [
                 {
-                    <td>Státusz: Elfogadásra vár</td>
-                }
-                else if (@Model.Flight.Status.Equals(FlightStatus.Accepted))
-                {
-                    <td>Státusz: Elfogadva</td>
-                }
-                else if (@Model.Flight.Status.Equals(FlightStatus.Denied))
-                {
-                    <td>Státusz: Elutasítva</td>
-                }
-                else
-                {
-                    <td>Státusz: -</td>
-                }
-            </tr>
-            @if (User.IsInRole("Administrator") && @Model.Flight.Status.Equals(FlightStatus.Wait))
+                    lat: @Html.Raw(Json.Serialize(Model.Coordinates[0].LatitudeCoord)),
+                    lng: @Html.Raw(Json.Serialize(Model.Coordinates[0].LongitudeCoord))
+                }];
+
+            @foreach (var coordinate in Model.Coordinates)
             {
-                <tr>
-                    <td>
-                        <form asp-page-handler="Accept" asp-route-id="@Model.Flight.Id" method="post">
-                            <button class="btn-light">Elfogad</button>
-                        </form>
-                        <form asp-page-handler="Denied" asp-route-id="@Model.Flight.Id" method="post">
-                            <button class="btn-light">Elutasít</button>
-                        </form>
-                    </td>
-                </tr>
+
+                <text>
+                        flightPlanCoordinates.push(
+                        {
+                            lat: @Html.Raw(Json.Serialize(@coordinate.LatitudeCoord)),
+                            lng: @Html.Raw(Json.Serialize(@coordinate.LongitudeCoord))
+                        });
+                </text>
             }
+
+            var flightPath = new google.maps.Polyline({
+              path: flightPlanCoordinates,
+                              geodesic: true,
+                              strokeColor: '#33C4DB',
+                              strokeOpacity: 1.0,
+                              strokeWeight: 2
+            });
+
+            flightPath.setMap(map);
+        }
+
+        google.maps.event.addDomListener(window, 'load', initMap);
+
+    </script>
+}
+
+<div style="margin-top:50px; display:flex; align-content:flex-start">
+    <div style="margin-right:30px; display:inline-block;">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td>Pilóta: @Model.Flight.AppUser.UserName</td>
+                </tr>
+                <tr>
+                    <td>Repülés dátuma: @Model.Flight.Date.ToShortDateString()</td>
+                </tr>
+                <tr>
+                    <td>Időtartam: @Model.Flight.Duration</td>
+                </tr>
+                <tr>
+                    <td>Felszállás helye: @Model.Flight.TakeOfAirport.Name</td>
+                </tr>
+                <tr>
+                    <td>Leszállás helye: @Model.Flight.LandingAirport.Name</td>
+                </tr>
+                <tr>
+                    @if (@Model.Flight.Status.Equals(FlightStatus.Wait))
+                    {
+                        <td>Státusz: Elfogadásra vár</td>
+                    }
+                    else if (@Model.Flight.Status.Equals(FlightStatus.Accepted))
+                    {
+                        <td>Státusz: Elfogadva</td>
+                    }
+                    else if (@Model.Flight.Status.Equals(FlightStatus.Denied))
+                    {
+                        <td>Státusz: Elutasítva</td>
+                    }
+                    else
+                    {
+                        <td>Státusz: -</td>
+                    }
+                </tr>
+                @if (User.IsInRole("Administrator") && @Model.Flight.Status.Equals(FlightStatus.Wait))
+                {
+                    <tr>
+                        <td>
+                            <form class="form-valid" asp-page-handler="Accept" asp-route-id="@Model.Flight.Id" method="post">
+                                <button class="btn-valid">Elfogad</button>
+                            </form>
+                            <form class="form-valid" asp-page-handler="Denied" asp-route-id="@Model.Flight.Id" method="post">
+                                <button class="btn-valid">Elutasít</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
             </tbody>
         </table>
+    </div>
 
+    <div id="map_canvas" style="width:600px; height:500px; display: inline-block;"></div>
+</div>

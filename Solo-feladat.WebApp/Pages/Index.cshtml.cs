@@ -11,7 +11,6 @@ namespace Solo_feladat.WebApp.Pages
     {
         public void OnGet()
         {
-
         }
     }
 }

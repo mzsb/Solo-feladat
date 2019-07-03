@@ -12,5 +12,6 @@ namespace Solo_feladat.Model.Models
 
         public FileType Type { get; set; }
         public byte[] Data { get; set; }
+        public bool Processed { get; set; } = false;
     }
 }

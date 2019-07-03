@@ -22,7 +22,8 @@ namespace Solo_feladat.WebApp.Jobs
         {
             IFileManager airportFileManager = new AirportFileManager(context);
 
-            RecurringJob.AddOrUpdate(() => airportFileManager.SaveDataFromFile(), Cron.Minutely);
+            RecurringJob.AddOrUpdate(() =>
+            airportFileManager.SaveDataFromFile(), Cron.Minutely);
         }
     }
 }

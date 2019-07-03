@@ -24,6 +24,7 @@ namespace Solo_feladat.BLL.Managers
             return await context.Flights.Include(f => f.AirportFlights)
                                         .ThenInclude(af => af.Airport)
                                         .Include(f => f.AppUser)
+                                        .Include(f => f.Coordinates)
                                         .Where(f => f.Id.Equals(Id))
                                         .AsNoTracking()
                                         .SingleOrDefaultAsync();

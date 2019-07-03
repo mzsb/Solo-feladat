@@ -22,9 +22,9 @@ namespace Solo_feladat.BLL.Managers
             this.context = context;
         }
 
-        public abstract void ProcessFile(Model.Models.File file);
+        protected abstract void ProcessFile(Model.Models.File file);
 
-        public async Task<bool> InsertFilesAsync(List<Solo_feladat.Model.Models.File> files)
+        public async Task<bool> InsertFilesAsync(List<Model.Models.File> files)
         {
             foreach (var f in files)
             {
@@ -36,23 +36,25 @@ namespace Solo_feladat.BLL.Managers
 
         public void SaveDataFromFile()
         {
-            List<Solo_feladat.Model.Models.File> files = context.Files.ToList();
+            var files = context.Files.ToList();
 
-            if (files.Count > 0)
+            foreach (var file in files)
             {
-                var airportFileManager = new AirportFileManager(context);
-                var logFileManager = new LogFileManager(context);
-
-                foreach (var f in files)
+                if (!file.Processed)
                 {
-                    ProcessFile(f);
-                }
+                    file.Processed = true;
 
-                if (context.SaveChanges() > 0)
-                {
-                    foreach (var f in context.Files)
+                    context.SaveChanges();
+
+                    ProcessFile(file);
+
+                    if (context.SaveChanges() > 0)
                     {
-                        context.Files.Remove(f);
+                        context.Files.Remove(file);
+                    }
+                    else
+                    {
+                        file.Processed = false;
                     }
 
                     context.SaveChanges();

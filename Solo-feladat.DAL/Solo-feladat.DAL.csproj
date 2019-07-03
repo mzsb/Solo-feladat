@@ -14,6 +14,8 @@
     <Compile Remove="Migrations\20190701133844_Airport_Coordinate_Delete.Designer.cs" />
     <Compile Remove="Migrations\20190701133942_Airport_Coordinate_Delete.cs" />
     <Compile Remove="Migrations\20190701133942_Airport_Coordinate_Delete.Designer.cs" />
+    <Compile Remove="Migrations\20190703074221_FlightStatus_Flags.cs" />
+    <Compile Remove="Migrations\20190703074221_FlightStatus_Flags.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

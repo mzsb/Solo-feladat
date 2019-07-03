@@ -21,10 +21,10 @@
         @foreach (var flight in Model.Flights)
         {
             <tr>
-                <td>@Html.DisplayFor(m => flight.Date)</td>
-                <td>-</td>
-                <td>@Html.DisplayFor(m => flight.TakeOfAirport.Name)</td>
-                <td>@Html.DisplayFor(m => flight.LandingAirport.Name)</td>
+                <td>@flight.Date.ToShortDateString()</td>
+                <td>@flight.Duration</td>
+                <td>@flight.TakeOfAirport.Name</td>
+                <td>@flight.LandingAirport.Name</td>
 
                 @if (@flight.Status.Equals(FlightStatus.Wait))
                 {

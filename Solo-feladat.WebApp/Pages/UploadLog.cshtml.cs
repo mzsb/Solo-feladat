@@ -21,18 +21,16 @@ namespace Solo_feladat.WebApp.Pages
     {
         private readonly ILogFileManager logFileManager;
         private IMapper mapper;
-        private ILogFileProcessJob logFileProcessJob;
 
         public string Message { get; set; }
 
         [BindProperty]
         public bool ShowMessage => !string.IsNullOrEmpty(Message);
 
-        public UploadLogModel(ILogFileManager logFileManager, IMapper mapper, ILogFileProcessJob logFileProcessJob)
+        public UploadLogModel(ILogFileManager logFileManager, IMapper mapper)
         {
             this.logFileManager = logFileManager;
             this.mapper = mapper;
-            this.logFileProcessJob = logFileProcessJob;
         }
 
         public async Task<ActionResult> OnPostUploadFile(List<IFormFile> formFiles)
@@ -63,15 +61,7 @@ namespace Solo_feladat.WebApp.Pages
 
                 bool result = await logFileManager.InsertFilesAsync(mapped);
 
-                if (result)
-                {
-                    logFileProcessJob.Execute();
-                    Message = "Sikeres fájlfeltöltés";
-                }
-                else
-                {
-                    Message = "Sikertelen fájlfeltöltés";
-                }
+                Message = (result ? "Sikeres" : "Sikertelen") + " fájlfeltöltés";
             }
             return Page();
         }

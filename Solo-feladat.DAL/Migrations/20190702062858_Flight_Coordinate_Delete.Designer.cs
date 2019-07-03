@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Solo_feladat.DAL.Context;
 
 namespace Solo_feladat.DAL.Migrations
 {
     [DbContext(typeof(SoloContext))]
-    partial class SoloContextModelSnapshot : ModelSnapshot
+    [Migration("20190702062858_Flight_Coordinate_Delete")]
+    partial class Flight_Coordinate_Delete
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

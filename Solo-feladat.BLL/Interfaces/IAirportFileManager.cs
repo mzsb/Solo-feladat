@@ -4,5 +4,5 @@ using System.Text;
 
 namespace Solo_feladat.BLL.Interfaces
 {
-    public interface IAirportFileManager : IFileManager{ }
+    public interface IAirportFileManager : IFileManager { }
 }

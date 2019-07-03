@@ -20,101 +20,71 @@ namespace Solo_feladat.BLL.Managers
             this.context = context;
         }
 
-        public override void ProcessFile(Model.Models.File file)
+        protected override void ProcessFile(File file)
         {
             if (file.Type.Equals(FileType.Log))
             {
-                string logData = Encoding.UTF8.GetString(file.Data);
-
-                List<string> log = logData.Split("\r\n").ToList();
-
-                Flight flight = new Flight();
-
-                flight.Status = FlightStatus.Wait;
-
-                flight.AppUserId = file.AppUserId;
-
-                var dateRow = log.ElementAt(1);
-
-                dateRow = dateRow.Substring(Math.Max(0, dateRow.Length - (3 * 2)));
-
-                flight.Date = GetDateTime(dateRow, "ddMMyy");
-
-                List<string> fixes = GetFixes(log);
-
-                flight.Duration = GetDuration(fixes);
-
-                foreach (var f in fixes)
-                {
-                    flight.Coordinates.Add(new Coordinate
-                    {
-                        LatitudeCoord = GetLatitudeCoord(f),
-                        LongitudeCoord = GetLongitudeCoord(f)
-                    });
-                }
-
-                flight.AirportFlights.Add(new AirportFlight
-                {
-                    Type = AirportType.Takeoff,
-                    AirportId = context.Airports
-                                       .Include(a => a.Coordinate)
-                                       .Where(a =>
-                                        CalculateDistance(a.Coordinate, flight.Coordinates.LastOrDefault()) < 3000.0)
-                                       .FirstOrDefault().Id
-                });
-
-                flight.AirportFlights.Add(new AirportFlight
-                {
-                    Type = AirportType.Landing,
-                    Airport = context.Airports
-                                     .Include(a => a.Coordinate)
-                                     .Where(a => CalculateDistance(a.Coordinate, flight.Coordinates.LastOrDefault()) < 3000.0)
-                                     .FirstOrDefault()
-                                     ?? 
-                                     context.Airports
-                                            .Where(a => a.Name.Equals("Terep"))
-                                            .FirstOrDefault()
-                                     ??
-                                     new Airport
-                                     {
-                                         Name = "Terep",
-                                         Coordinate = new Coordinate
-                                         {
-                                             LatitudeCoord = -1.0,
-                                             LongitudeCoord = -1.0
-                                         }
-                                     }
-                });
+                var flight = GetFlightFromLogFile(file);
 
                 context.Flights.Add(flight);
             }
         }
 
-        private DateTime GetDateTime(string row, string format)
+        private Flight GetFlightFromLogFile(File file)
         {
-            return DateTime.ParseExact(row, format, CultureInfo.InvariantCulture);
-        }
+            string logData = Encoding.UTF8.GetString(file.Data);
 
-        private TimeSpan GetDuration(List<string> fixes)
-        {
-            return GetDateTime(fixes.Last().Substring(0, 2 * 3), "HHmmss") - 
-                   GetDateTime(fixes.First().Substring(0, 2 * 3), "HHmmss");
-        }
+            List<string> log = logData.Split("\r\n").ToList();
 
-        private double GetLatitudeCoord(string fix)
-        {
-            fix = fix.Substring(6,7);
+            Flight flight = new Flight();
 
-            var c = fix.Substring(2, 2) + "." + fix.Substring(4, 3);
+            flight.Status = FlightStatus.Wait;
 
-            return double.Parse(fix.Substring(0,2)) + (double.Parse(fix.Substring(2, 2) + "," + fix.Substring(4, 3)) / 60.0);
-        }
+            flight.AppUserId = file.AppUserId;
 
-        private double GetLongitudeCoord(string fix)
-        {
-            fix = fix.Substring(14, 8);
+            var dateRow = log.ElementAt(1);
 
-            return double.Parse(fix.Substring(0, 3)) + (double.Parse(fix.Substring(3, 2) + "," + fix.Substring(5,3)) / 60.0);
+            dateRow = dateRow.Substring(Math.Max(0, dateRow.Length - (2 * 3)));
+
+            flight.Date = GetDateTime(dateRow, "ddMMyy");
+
+            List<string> fixes = GetFixes(log);
+
+            flight.Duration = GetDuration(fixes, "HHmmss");
+
+            foreach (var f in fixes)
+            {
+                flight.Coordinates.Add(new Coordinate
+                {
+                    LatitudeCoord = GetLatitudeCoord(f),
+                    LongitudeCoord = GetLongitudeCoord(f)
+                });
+            }
+
+            flight.AirportFlights.Add(new AirportFlight
+            {
+                Type = AirportType.Takeoff,
+                Airport = context.Airports
+                                   .Include(a => a.Coordinate)
+                                   .Where(a =>
+                                    CalculateDistance(a.Coordinate, flight.Coordinates.FirstOrDefault()) < 3000.0)
+                                   .FirstOrDefault()
+                                   ??
+                                   GetField()
+            });
+
+            flight.AirportFlights.Add(new AirportFlight
+            {
+                Type = AirportType.Landing,
+                Airport = context.Airports
+                                 .Include(a => a.Coordinate)
+                                 .Where(a => CalculateDistance(a.Coordinate, flight.Coordinates.LastOrDefault()) < 3000.0)
+                                 .FirstOrDefault()
+                                 ??
+                                 GetField()
+            });
+
+            return flight;
         }
 
         public double CalculateDistance(Coordinate start, Coordinate end)
@@ -146,5 +116,50 @@ namespace Solo_feladat.BLL.Managers
             return fixes;
         }
 
+        private DateTime GetDateTime(string row, string format)
+        {
+            return DateTime.ParseExact(row, format, CultureInfo.InvariantCulture);
+        }
+
+        private TimeSpan GetDuration(List<string> fixes, string format)
+        {
+            return GetDateTime(fixes.Last().Substring(0, 2 * 3), format) -
+                   GetDateTime(fixes.First().Substring(0, 2 * 3), format);
+        }
+
+        private double GetLatitudeCoord(string fix)
+        {
+            fix = fix.Substring(6, 7);
+
+            return double.Parse(fix.Substring(0, 2)) + (double.Parse(fix.Substring(2, 2) + 
+                                                       "," + 
+                                                       fix.Substring(4, 3)) / 60.0);
+        }
+
+        private double GetLongitudeCoord(string fix)
+        {
+            fix = fix.Substring(14, 8);
+
+            return double.Parse(fix.Substring(0, 3)) + (double.Parse(fix.Substring(3, 2) + 
+                                                       "," + 
+                                                       fix.Substring(5, 3)) / 60.0);
+        }
+
+        private Airport GetField()
+        {
+            return context.Airports
+                          .Where(a => a.Name.Equals("Terep"))
+                          .FirstOrDefault()
+            ??
+            new Airport
+            {
+                Name = "Terep",
+                Coordinate = new Coordinate
+                {
+                    LatitudeCoord = -1.0,
+                    LongitudeCoord = -1.0
+                }
+            };
+        }
     }
 }

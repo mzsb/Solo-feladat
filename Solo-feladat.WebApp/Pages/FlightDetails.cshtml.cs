@@ -17,18 +17,21 @@ namespace Solo_feladat.WebApp.Pages
         private readonly IFlightManager flightManager;
         private IMapper mapper;
 
+        [BindProperty]
+        public Flight Flight { get; set; }
+        public List<Coordinate> Coordinates { get; set; }
+
         public FlightDetailsModel(IFlightManager flightManager, IMapper mapper)
         {
             this.flightManager = flightManager;
             this.mapper = mapper;
         }
 
-        [BindProperty]
-        public Flight Flight { get; set; }
-
         public async Task OnGet(Guid Id)
         {
             Flight = mapper.Map<Flight>(await flightManager.GetFlightByIdAsync(Id));
+
+            Coordinates = Flight.Coordinates.ToList();
         }
 
         public async Task<ActionResult> OnPostAccept(Guid Id)
@@ -56,5 +59,6 @@ namespace Solo_feladat.WebApp.Pages
 
             return Page();
         }
+
     }
 }

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Solo_feladat.DAL.Context;
 
 namespace Solo_feladat.DAL.Migrations
 {
     [DbContext(typeof(SoloContext))]
-    partial class SoloContextModelSnapshot : ModelSnapshot
+    [Migration("20190702061554_File_Processed")]
+    partial class File_Processed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -347,8 +349,7 @@ namespace Solo_feladat.DAL.Migrations
 
                     b.HasOne("Solo_feladat.Model.Models.Flight", "Flight")
                         .WithMany("Coordinates")
-                        .HasForeignKey("FlightId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("FlightId");
                 });
 
             modelBuilder.Entity("Solo_feladat.Model.Models.File", b =>

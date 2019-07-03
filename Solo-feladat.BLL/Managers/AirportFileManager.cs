@@ -20,7 +20,7 @@ namespace Solo_feladat.BLL.Managers
             this.context = context;
         }
 
-        public override void ProcessFile(Model.Models.File file)
+        protected override void ProcessFile(Model.Models.File file)
         {
             if (file.Type.Equals(FileType.Airport))
             {
