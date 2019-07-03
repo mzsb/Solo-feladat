@@ -12,14 +12,13 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Solo_feladat.BLL.Interfaces;
 using Solo_feladat.Model.Models;
 using Solo_feladat.WebApp.Jobs;
-using Solo_feladat.WebApp.Jobs.Interfaces;
 
 namespace Solo_feladat.WebApp.Pages
 {
     [Authorize(Roles = "Pilot, Administrator")]
     public class UploadLogModel : PageModel
     {
-        private readonly ILogFileManager logFileManager;
+        private readonly IFileManager fileManager;
         private IMapper mapper;
 
         public string Message { get; set; }
@@ -27,9 +26,9 @@ namespace Solo_feladat.WebApp.Pages
         [BindProperty]
         public bool ShowMessage => !string.IsNullOrEmpty(Message);
 
-        public UploadLogModel(ILogFileManager logFileManager, IMapper mapper)
+        public UploadLogModel(IFileManager fileManager, IMapper mapper)
         {
-            this.logFileManager = logFileManager;
+            this.fileManager = fileManager;
             this.mapper = mapper;
         }
 
@@ -44,7 +43,7 @@ namespace Solo_feladat.WebApp.Pages
                 }
             }
 
-            var logFiles = await logFileManager.ConvertIFormFiles(formFiles);
+            var logFiles = await fileManager.ConvertIFormFiles(formFiles);
 
             Guid AppUserid = Guid.Parse(User.Identity.GetUserId());
             FileType fileType = FileType.Log;
@@ -59,7 +58,7 @@ namespace Solo_feladat.WebApp.Pages
             {
                 var mapped = mapper.Map<List<Model.Models.File>>(logFiles);
 
-                bool result = await logFileManager.InsertFilesAsync(mapped);
+                bool result = await fileManager.InsertFilesAsync(mapped);
 
                 Message = (result ? "Sikeres" : "Sikertelen") + " fájlfeltöltés";
             }

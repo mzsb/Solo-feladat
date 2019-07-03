@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Solo_feladat.WebApp.Jobs
 {
-    public interface IAirportFileProcessJob
+    public interface IFileProcessJob
     {
         void Execute();
     }

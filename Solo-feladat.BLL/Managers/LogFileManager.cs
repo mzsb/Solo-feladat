@@ -11,25 +11,34 @@ using System.Threading.Tasks;
 
 namespace Solo_feladat.BLL.Managers
 {
-    public class LogFileManager : FileManager, ILogFileManager
+    public class LogFileManager
     {
         private readonly SoloContext context;
 
-        public LogFileManager(SoloContext context) : base(context)
+        public LogFileManager(SoloContext context)
         {
             this.context = context;
         }
 
-        protected override void ProcessFile(File file)
+        /// <summary>
+        /// A parameterkent kapott Filet feldolgozza es az igy kapott Flightot menti az adatbazisba.
+        /// </summary>
+        /// <param name="file">Feldolgozando File</param>
+        /// <returns>Igaz az adatok sikeres mentese eseten, egyebkent hamis</returns>
+        public bool ProcessFile(File file)
         {
-            if (file.Type.Equals(FileType.Log))
-            {
-                var flight = GetFlightFromLogFile(file);
+            var flight = GetFlightFromLogFile(file);
 
-                context.Flights.Add(flight);
-            }
+            context.Flights.Add(flight);
+
+            return context.SaveChanges() > 0;
         }
 
+        /// <summary>
+        /// A parameterkent kapott Filebol kinyeri egy Flight adatait
+        /// </summary>
+        /// <param name="excelData">Feldolgozando File</param>
+        /// <returns>A kinyert Flight</returns>
         private Flight GetFlightFromLogFile(File file)
         {
             string logData = Encoding.UTF8.GetString(file.Data);
@@ -87,6 +96,12 @@ namespace Solo_feladat.BLL.Managers
             return flight;
         }
 
+        /// <summary>
+        /// Két Coordinate kozti tavolsagot szamolja ki meterben.
+        /// </summary>
+        /// <param name="start">Elso Coordinate</param>
+        /// <param name="end">Masodik Coordinate</param>
+        /// <returns>Az elso es masodik Coordinate kozti tavolsag meterben</returns>
         public double CalculateDistance(Coordinate start, Coordinate end)
         {
             double rlat1 = Math.PI * start.LatitudeCoord / 180;
@@ -100,10 +115,14 @@ namespace Solo_feladat.BLL.Managers
             dist = dist * 180 / Math.PI;
             dist = dist * 60 * 1.1515;
 
-            return dist * 1609.344; // Méterben adja vissza a távolságot
+            return dist * 1609.344;
         }
 
-
+        /// <summary>
+        /// Parameterkent kapott GPS logfajbol fixeket nyer ki.
+        /// </summary>
+        /// <param name="logData">A GPS logfajl</param>
+        /// <returns>Kinyert fixek</returns>
         private List<string> GetFixes(List<string> logData)
         {
             List<string> fixes = new List<string>();

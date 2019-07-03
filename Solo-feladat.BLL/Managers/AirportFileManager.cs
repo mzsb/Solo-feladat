@@ -11,31 +11,40 @@ using System.Threading.Tasks;
 
 namespace Solo_feladat.BLL.Managers
 {
-    public class AirportFileManager : FileManager,IAirportFileManager
+    public class AirportFileManager
     {
         private readonly SoloContext context;
 
-        public AirportFileManager(SoloContext context) : base(context)
+        public AirportFileManager(SoloContext context)
         {
             this.context = context;
         }
 
-        protected override void ProcessFile(Model.Models.File file)
+        /// <summary>
+        /// A parameterkent kapott Filet feldolgozza es az igy kapott Airportokat menti az adatbazisba.
+        /// </summary>
+        /// <param name="file">Feldolgozando File</param>
+        /// <returns>Igaz az adatok sikeres mentese eseten, egyebkent hamis</returns>
+        public bool ProcessFile(Model.Models.File file)
         {
-            if (file.Type.Equals(FileType.Airport))
+            var excelData = GetExcelDataFromFile(file);
+
+            var airports = GetAirportsFromExcelData(excelData);
+
+            foreach (var a in airports)
             {
-                var excelData = GetExcelDataFromFile(file);
-
-                var airports = GetAirportsFromExcelData(excelData);
-
-                foreach (var a in airports)
-                {
-                    if (!context.Airports.Select(ai => ai.Name).Contains(a.Name))
-                        context.Airports.Add(a);
-                }
+                if (!context.Airports.Select(ai => ai.Name).Contains(a.Name))
+                    context.Airports.Add(a);
             }
+
+            return context.SaveChanges() > 0;
         }
 
+        /// <summary>
+        /// A parameterkent kapott Filet exceltablakent dolgozza fel.
+        /// </summary>
+        /// <param name="file">Feldolgozando File</param>
+        /// <returns>Az excel fajl cellai</returns>
         private List<List<String>> GetExcelDataFromFile(Model.Models.File file)
         {
             List<List<string>> excelData = new List<List<string>>();
@@ -65,6 +74,11 @@ namespace Solo_feladat.BLL.Managers
             return excelData;
         }
 
+        /// <summary>
+        /// A parameterkent kapott excel cellakbol kinyeri az Airportok adatait
+        /// </summary>
+        /// <param name="excelData">Feldolgozando excel cellak</param>
+        /// <returns>A kinyert Airportok</returns>
         private List<Airport> GetAirportsFromExcelData(List<List<string>> excelData)
         {
             List<Airport> airports = new List<Airport>();

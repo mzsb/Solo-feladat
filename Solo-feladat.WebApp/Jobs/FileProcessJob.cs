@@ -9,21 +9,21 @@ using System.Threading.Tasks;
 
 namespace Solo_feladat.WebApp.Jobs
 {
-    public class AirportFileProcessJob : IAirportFileProcessJob
+    public class FileProcessJob : IFileProcessJob
     {
         private readonly SoloContext context;
 
-        public AirportFileProcessJob(SoloContext context)
+        public FileProcessJob(SoloContext context)
         {
             this.context = context;
         }
 
         public void Execute()
         {
-            IFileManager airportFileManager = new AirportFileManager(context);
+            IFileManager fileManager = new FileManager(context);
 
             RecurringJob.AddOrUpdate(() =>
-            airportFileManager.SaveDataFromFile(), Cron.Minutely);
+            fileManager.SaveDataFromFile(), Cron.Minutely);
         }
     }
 }

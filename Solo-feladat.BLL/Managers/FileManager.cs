@@ -13,16 +13,18 @@ using System.Threading.Tasks;
 
 namespace Solo_feladat.BLL.Managers
 {
-    public abstract class FileManager : IFileManager
+    public class FileManager : IFileManager
     {
         private readonly SoloContext context;
+        private AirportFileManager airportFileManager;
+        private LogFileManager logFileManager;
 
         public FileManager(SoloContext context)
         {
             this.context = context;
+            airportFileManager = new AirportFileManager(context);
+            logFileManager = new LogFileManager(context);
         }
-
-        protected abstract void ProcessFile(Model.Models.File file);
 
         public async Task<bool> InsertFilesAsync(List<Model.Models.File> files)
         {
@@ -34,6 +36,10 @@ namespace Solo_feladat.BLL.Managers
             return await context.SaveChangesAsync() > 0;
         }
 
+        /// <summary>
+        /// A fajl tablaban levo feldolgozatlan fajlokat dolgozza fel.
+        /// Ha sikeres egy fajl feldolgozasa akkor torli az adatbazisbol.
+        /// </summary>
         public void SaveDataFromFile()
         {
             var files = context.Files.ToList();
@@ -46,9 +52,18 @@ namespace Solo_feladat.BLL.Managers
 
                     context.SaveChanges();
 
-                    ProcessFile(file);
+                    bool result = false;
 
-                    if (context.SaveChanges() > 0)
+                    if (file.Type.Equals(FileType.Airport))
+                    {
+                        result = airportFileManager.ProcessFile(file);
+                    }
+                    else if (file.Type.Equals(FileType.Log))
+                    {
+                        result = logFileManager.ProcessFile(file);
+                    }
+
+                    if (result)
                     {
                         context.Files.Remove(file);
                     }
@@ -62,6 +77,11 @@ namespace Solo_feladat.BLL.Managers
             }
         }
 
+        /// <summary>
+        /// A parameterkent kapott IFormFileokbol kinyeri a binaris adatot, amit Fileokba ment.
+        /// </summary>
+        /// <param name="formFiles">Feldolgozando IFormFileok</param>
+        /// <returns>IFormFileokbol letrehozott Fileok</returns>
         public async Task<List<Dtos.File>> ConvertIFormFiles(List<IFormFile> formFiles)
         {
             List<Dtos.File> files = new List<Dtos.File>();

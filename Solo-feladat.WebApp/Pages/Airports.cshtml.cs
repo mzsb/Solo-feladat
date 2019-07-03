@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Solo_feladat.BLL.Dtos;
 using Solo_feladat.BLL.Interfaces;
+using Solo_feladat.BLL.Managers;
 using Solo_feladat.Model.Models;
 using Solo_feladat.WebApp.Jobs;
 
@@ -19,7 +20,7 @@ namespace Solo_feladat.WebApp.Pages
     [Authorize(Roles = "Administrator")]
     public class AirportsModel : PageModel
     {
-        private readonly IAirportFileManager airportFileManager;
+        private readonly IFileManager fileManager;
         private IMapper mapper;
 
         public string Message { get; set; }
@@ -27,9 +28,9 @@ namespace Solo_feladat.WebApp.Pages
         [BindProperty]
         public bool ShowMessage => !string.IsNullOrEmpty(Message);
 
-        public AirportsModel(IAirportFileManager airportFileManager, IMapper mapper)
+        public AirportsModel(IFileManager fileManager, IMapper mapper)
         {
-            this.airportFileManager = airportFileManager;
+            this.fileManager = fileManager;
             this.mapper = mapper;
         }
 
@@ -44,7 +45,7 @@ namespace Solo_feladat.WebApp.Pages
                 }
             }
 
-            var airportFiles = await airportFileManager.ConvertIFormFiles(formFiles);
+            var airportFiles = await fileManager.ConvertIFormFiles(formFiles);
 
             Guid AppUserid = Guid.Parse(User.Identity.GetUserId());
             FileType fileType = FileType.Airport;
@@ -59,7 +60,7 @@ namespace Solo_feladat.WebApp.Pages
             {
                 var mapped = mapper.Map<List<Model.Models.File>>(airportFiles);
 
-                bool result = await airportFileManager.InsertFilesAsync(mapped);
+                bool result = await fileManager.InsertFilesAsync(mapped);
 
                 Message = result ? "Sikeres" : "Sikertelen" + " fájlfeltöltés";
             }
