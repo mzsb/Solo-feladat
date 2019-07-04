@@ -25,7 +25,7 @@ namespace Solo_feladat.BLL.Managers
         /// </summary>
         /// <param name="file">Feldolgozando File</param>
         /// <returns>Igaz az adatok sikeres mentese eseten, egyebkent hamis</returns>
-        public bool ProcessFile(Model.Models.File file)
+        public async Task<bool> ProcessFile(Model.Models.File file)
         {
             var excelData = GetExcelDataFromFile(file);
 
@@ -37,7 +37,7 @@ namespace Solo_feladat.BLL.Managers
                     context.Airports.Add(a);
             }
 
-            return context.SaveChanges() > 0;
+            return await context.SaveChangesAsync() > 0;
         }
 
         /// <summary>

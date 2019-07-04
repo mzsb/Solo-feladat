@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -45,7 +45,7 @@ namespace Solo_feladat.WebApp.Pages
 
             var logFiles = await fileManager.ConvertIFormFiles(formFiles);
 
-            Guid AppUserid = Guid.Parse(User.Identity.GetUserId());
+            Guid AppUserid = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             FileType fileType = FileType.Log;
 
             foreach (var af in logFiles)

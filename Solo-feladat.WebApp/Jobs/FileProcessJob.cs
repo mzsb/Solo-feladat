@@ -22,8 +22,7 @@ namespace Solo_feladat.WebApp.Jobs
         {
             IFileManager fileManager = new FileManager(context);
 
-            RecurringJob.AddOrUpdate(() =>
-            fileManager.SaveDataFromFile(), Cron.Minutely);
+            RecurringJob.AddOrUpdate(() => fileManager.SaveDataFromFile(), Cron.Minutely);
         }
     }
 }

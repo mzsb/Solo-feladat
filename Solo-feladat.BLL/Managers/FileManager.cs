@@ -30,17 +30,17 @@ namespace Solo_feladat.BLL.Managers
         {
             foreach (var f in files)
             {
-                await context.Files.AddAsync(f);
+                context.Files.Add(f);
             }
 
             return await context.SaveChangesAsync() > 0;
         }
 
         /// <summary>
-        /// A fajl tablaban levo feldolgozatlan fajlokat dolgozza fel.
+        /// A File tablaban levo feldolgozatlan fajlokat dolgozza fel.
         /// Ha sikeres egy fajl feldolgozasa akkor torli az adatbazisbol.
         /// </summary>
-        public void SaveDataFromFile()
+        public async void SaveDataFromFile()
         {
             var files = context.Files.ToList();
 
@@ -50,17 +50,17 @@ namespace Solo_feladat.BLL.Managers
                 {
                     file.Processed = true;
 
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
 
                     bool result = false;
 
                     if (file.Type.Equals(FileType.Airport))
                     {
-                        result = airportFileManager.ProcessFile(file);
+                        result = await airportFileManager.ProcessFile(file);
                     }
                     else if (file.Type.Equals(FileType.Log))
                     {
-                        result = logFileManager.ProcessFile(file);
+                        result = await logFileManager.ProcessFile(file);
                     }
 
                     if (result)
@@ -72,7 +72,7 @@ namespace Solo_feladat.BLL.Managers
                         file.Processed = false;
                     }
 
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
                 }
             }
         }

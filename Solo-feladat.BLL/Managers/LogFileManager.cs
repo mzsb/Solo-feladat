@@ -25,7 +25,7 @@ namespace Solo_feladat.BLL.Managers
         /// </summary>
         /// <param name="file">Feldolgozando File</param>
         /// <returns>Igaz az adatok sikeres mentese eseten, egyebkent hamis</returns>
-        public bool ProcessFile(File file)
+        public async Task<bool> ProcessFile(File file)
         {
             var flight = GetFlightFromLogFile(file);
 
@@ -135,6 +135,12 @@ namespace Solo_feladat.BLL.Managers
             return fixes;
         }
 
+        /// <summary>
+        /// Egy parameterkent kapott datum logfajlsorbol parameterkent kapott formatumu DateTimeot general
+        /// </summary>
+        /// <param name="row">Datum logfilesor</param>
+        /// <param name="format">Datum formatum</param>
+        /// <returns>A formazott DateTime</returns>
         private DateTime GetDateTime(string row, string format)
         {
             return DateTime.ParseExact(row, format, CultureInfo.InvariantCulture);

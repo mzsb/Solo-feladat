@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using Hangfire;
-using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -29,7 +29,7 @@ namespace Solo_feladat.WebApp.Pages
 
         public async Task OnGetAsync()
         {
-            var flights = await flightManager.GetFlightsByUserIdAsync(Guid.Parse(User.Identity.GetUserId()));
+            var flights = await flightManager.GetFlightsByUserIdAsync(Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)));
 
             Flights = mapper.Map<List<Flight>>(flights);
         }

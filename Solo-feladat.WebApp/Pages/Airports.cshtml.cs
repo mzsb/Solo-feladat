@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Solo_feladat.BLL.Dtos;
@@ -47,7 +48,7 @@ namespace Solo_feladat.WebApp.Pages
 
             var airportFiles = await fileManager.ConvertIFormFiles(formFiles);
 
-            Guid AppUserid = Guid.Parse(User.Identity.GetUserId());
+            Guid AppUserid = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             FileType fileType = FileType.Airport;
 
             foreach (var af in airportFiles)
