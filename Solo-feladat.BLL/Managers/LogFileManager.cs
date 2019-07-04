@@ -31,7 +31,7 @@ namespace Solo_feladat.BLL.Managers
 
             context.Flights.Add(flight);
 
-            return context.SaveChanges() > 0;
+            return await context.SaveChangesAsync() > 0;
         }
 
         /// <summary>
