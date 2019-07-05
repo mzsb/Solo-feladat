@@ -9,11 +9,10 @@ namespace Solo_feladat.WebApp.Pages
 {
     public class _ErrorModel : PageModel
     {
-        public string Foo { get; set; }
 
         public void OnGet()
         {
-            Foo = Foo;
+
         }
     }
 }

@@ -11,11 +11,11 @@ using System.Threading.Tasks;
 
 namespace Solo_feladat.BLL.Managers
 {
-    public class LogFileManager
+    public class LogFileManager : FileManager, ILogFileManager
     {
         private readonly SoloContext context;
 
-        public LogFileManager(SoloContext context)
+        public LogFileManager(SoloContext context) : base(context)
         {
             this.context = context;
         }
@@ -25,13 +25,38 @@ namespace Solo_feladat.BLL.Managers
         /// </summary>
         /// <param name="file">Feldolgozando File</param>
         /// <returns>Igaz az adatok sikeres mentese eseten, egyebkent hamis</returns>
-        public async Task<bool> ProcessFile(File file)
+        public override async Task ProcessFile()
         {
-            var flight = GetFlightFromLogFile(file);
+            var files = await context.LogFiles.ToListAsync();
 
-            context.Flights.Add(flight);
+            foreach (var file in files)
+            {
+                if (!file.Processed)
+                {
+                    file.Processed = true;
 
-            return await context.SaveChangesAsync() > 0;
+                    await context.SaveChangesAsync();
+
+                    bool result = false;
+
+                    var flight = GetFlightFromLogFile(file);
+
+                    context.Flights.Add(flight);
+
+                    result = await context.SaveChangesAsync() > 0;
+
+                    if (result)
+                    {
+                        context.Files.Remove(file);
+                    }
+                    else
+                    {
+                        file.Processed = false;
+                    }
+
+                    await context.SaveChangesAsync();
+                }
+            }
         }
 
         /// <summary>

@@ -12,7 +12,6 @@ namespace Solo_feladat.Model.Models
         public AppUser AppUser { get; set; }
         public DateTime CreationDate { get; set; }
 
-        public FileType Type { get; set; }
         public byte[] Data { get; set; }
         public bool Processed { get; set; } = false;
     }

@@ -32,9 +32,6 @@ namespace Solo_feladat.WebApp.PageFilters
 
             context.ExceptionHandled = true;
 
-            _ErrorModel m = new _ErrorModel { Foo = "2" };
-
-            context.Result = m.RedirectToPage("/_Error");
         }
     }
 }

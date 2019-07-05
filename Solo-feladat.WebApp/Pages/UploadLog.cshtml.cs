@@ -18,7 +18,7 @@ namespace Solo_feladat.WebApp.Pages
     [Authorize(Roles = "Pilot, Administrator")]
     public class UploadLogModel : PageModel
     {
-        private readonly IFileManager fileManager;
+        private readonly ILogFileManager logFileManager;
         private IMapper mapper;
 
         public string Message { get; set; }
@@ -26,9 +26,9 @@ namespace Solo_feladat.WebApp.Pages
         [BindProperty]
         public bool ShowMessage => !string.IsNullOrEmpty(Message);
 
-        public UploadLogModel(IFileManager fileManager, IMapper mapper)
+        public UploadLogModel(ILogFileManager logFileManager, IMapper mapper)
         {
-            this.fileManager = fileManager;
+            this.logFileManager = logFileManager;
             this.mapper = mapper;
         }
 
@@ -43,22 +43,26 @@ namespace Solo_feladat.WebApp.Pages
                 }
             }
 
-            var logFiles = await fileManager.ConvertIFormFiles(formFiles);
+            var files = await logFileManager.ConvertIFormFiles(formFiles);
+
+            var logFiles = new List<LogFile>();
 
             Guid AppUserid = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            FileType fileType = FileType.Log;
 
-            foreach (var af in logFiles)
+            foreach (var f in files)
             {
-                af.AppUserId = AppUserid;
-                af.Type = fileType;
+                logFiles.Add(new LogFile
+                {
+                    AppUserId = AppUserid,
+                    Data = f.Data
+                });
             }
 
             if (logFiles.Count > 0)
             {
                 var mapped = mapper.Map<List<Model.Models.File>>(logFiles);
 
-                bool result = await fileManager.InsertFilesAsync(mapped);
+                bool result = await logFileManager.InsertFilesAsync(mapped);
 
                 Message = (result ? "Sikeres" : "Sikertelen") + " fájlfeltöltés";
             }

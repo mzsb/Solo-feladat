@@ -57,8 +57,14 @@ namespace Solo_feladat.WebApp.Mapper
 
                 cfg.CreateMap<Solo_feladat.BLL.Dtos.AppUser, AppUser>().ReverseMap();
 
-                cfg.CreateMap<Solo_feladat.BLL.Dtos.File, File>().ReverseMap();
+                cfg.CreateMap<Solo_feladat.BLL.Dtos.File, File>()
+                   .Include<Solo_feladat.BLL.Dtos.AirportFile, AirportFile>()
+                   .Include<Solo_feladat.BLL.Dtos.LogFile, LogFile>()
+                   .ReverseMap();
 
+                cfg.CreateMap<Solo_feladat.BLL.Dtos.AirportFile, AirportFile>().ReverseMap();
+
+                cfg.CreateMap<Solo_feladat.BLL.Dtos.LogFile, LogFile>().ReverseMap();
             });
 
 

@@ -24,6 +24,7 @@ using Solo_feladat.WebApp.Jobs;
 using Solo_feladat.WebApp.PageFilters;
 using System.IO;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Solo_feladat.WebApp.Jobs.Interfaces;
 
 namespace Solo_feladat.WebApp
 {
@@ -55,9 +56,13 @@ namespace Solo_feladat.WebApp
 
             services.AddTransient<IFlightManager, FlightManager>();
 
-            services.AddTransient<IFileManager, FileManager>();
+            services.AddTransient<IAirportFileManager, AirportFileManager>();
 
-            services.AddTransient<IFileProcessJob, FileProcessJob>();
+            services.AddTransient<ILogFileManager, LogFileManager>();
+
+            services.AddTransient<IAirportFileProcessJob, AirportFileProcessJob>();
+
+            services.AddTransient<ILogFileProcessJob, LogFileProcessJob>();
 
             services.AddSingleton(AutoMapperConfig.Configure());
 
@@ -87,7 +92,7 @@ namespace Solo_feladat.WebApp
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IFileProcessJob fileProcessJob)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IAirportFileProcessJob airportFileProcessJob, ILogFileProcessJob logFileProcessJob)
         {
             if (env.IsDevelopment())
             {
@@ -109,7 +114,8 @@ namespace Solo_feladat.WebApp
 
             app.UseHangfireDashboard();
 
-            fileProcessJob.Execute();
+            airportFileProcessJob.Execute();
+            logFileProcessJob.Execute();
 
             app.UseMvc();
         }

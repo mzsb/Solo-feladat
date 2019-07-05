@@ -1,4 +1,5 @@
-﻿using OfficeOpenXml;
+﻿using Microsoft.EntityFrameworkCore;
+using OfficeOpenXml;
 using Solo_feladat.BLL.Interfaces;
 using Solo_feladat.DAL.Context;
 using Solo_feladat.Model.Models;
@@ -11,11 +12,11 @@ using System.Threading.Tasks;
 
 namespace Solo_feladat.BLL.Managers
 {
-    public class AirportFileManager
+    public class AirportFileManager : FileManager, IAirportFileManager
     {
         private readonly SoloContext context;
 
-        public AirportFileManager(SoloContext context)
+        public AirportFileManager(SoloContext context) : base(context)
         {
             this.context = context;
         }
@@ -25,19 +26,44 @@ namespace Solo_feladat.BLL.Managers
         /// </summary>
         /// <param name="file">Feldolgozando File</param>
         /// <returns>Igaz az adatok sikeres mentese eseten, egyebkent hamis</returns>
-        public async Task<bool> ProcessFile(Model.Models.File file)
+        public override async Task ProcessFile()
         {
-            var excelData = GetExcelDataFromFile(file);
+            var files = await context.AirportFiles.ToListAsync();
 
-            var airports = GetAirportsFromExcelData(excelData);
-
-            foreach (var a in airports)
+            foreach (var file in files)
             {
-                if (!context.Airports.Select(ai => ai.Name).Contains(a.Name))
-                    context.Airports.Add(a);
-            }
+                if (!file.Processed)
+                {
+                    file.Processed = true;
 
-            return await context.SaveChangesAsync() > 0;
+                    await context.SaveChangesAsync();
+
+                    bool result = false;
+
+                    var excelData = GetExcelDataFromFile(file);
+
+                    var airports = GetAirportsFromExcelData(excelData);
+
+                    foreach (var a in airports)
+                    {
+                        if (!context.Airports.Select(ai => ai.Name).Contains(a.Name))
+                            context.Airports.Add(a);
+                    }
+
+                    result = await context.SaveChangesAsync() > 0;
+
+                    if (result)
+                    {
+                        context.Files.Remove(file);
+                    }
+                    else
+                    {
+                        file.Processed = false;
+                    }
+
+                    await context.SaveChangesAsync();
+                }
+            }
         }
 
         /// <summary>

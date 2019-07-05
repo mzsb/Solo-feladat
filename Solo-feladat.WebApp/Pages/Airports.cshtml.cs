@@ -21,7 +21,7 @@ namespace Solo_feladat.WebApp.Pages
     [Authorize(Roles = "Administrator")]
     public class AirportsModel : PageModel
     {
-        private readonly IFileManager fileManager;
+        private readonly IAirportFileManager airportFileManager;
         private IMapper mapper;
 
         public string Message { get; set; }
@@ -29,9 +29,9 @@ namespace Solo_feladat.WebApp.Pages
         [BindProperty]
         public bool ShowMessage => !string.IsNullOrEmpty(Message);
 
-        public AirportsModel(IFileManager fileManager, IMapper mapper)
+        public AirportsModel(IAirportFileManager airportFileManager, IMapper mapper)
         {
-            this.fileManager = fileManager;
+            this.airportFileManager = airportFileManager;
             this.mapper = mapper;
         }
 
@@ -46,22 +46,26 @@ namespace Solo_feladat.WebApp.Pages
                 }
             }
 
-            var airportFiles = await fileManager.ConvertIFormFiles(formFiles);
+            var files = await airportFileManager.ConvertIFormFiles(formFiles);
+
+            var airportFiles = new List<BLL.Dtos.AirportFile>();
 
             Guid AppUserid = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            FileType fileType = FileType.Airport;
 
-            foreach (var af in airportFiles)
+            foreach (var f in files)
             {
-                af.AppUserId = AppUserid;
-                af.Type = fileType;
+                airportFiles.Add(new BLL.Dtos.AirportFile
+                {
+                    AppUserId = AppUserid,
+                    Data = f.Data
+                });
             }
 
             if (airportFiles.Count > 0)
             {
                 var mapped = mapper.Map<List<Model.Models.File>>(airportFiles);
 
-                bool result = await fileManager.InsertFilesAsync(mapped);
+                bool result = await airportFileManager.InsertFilesAsync(mapped);
 
                 Message = result ? "Sikeres" : "Sikertelen" + " fájlfeltöltés";
             }

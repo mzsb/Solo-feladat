@@ -4,9 +4,5 @@ using System.Text;
 
 namespace Solo_feladat.Model.Models
 {
-    public enum FileType
-    {
-        Airport,
-        Log
-    }
+    public class AirportFile : File { }
 }

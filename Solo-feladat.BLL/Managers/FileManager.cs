@@ -13,17 +13,13 @@ using System.Threading.Tasks;
 
 namespace Solo_feladat.BLL.Managers
 {
-    public class FileManager : IFileManager
+    public abstract class FileManager : IFileManager
     {
         private readonly SoloContext context;
-        private AirportFileManager airportFileManager;
-        private LogFileManager logFileManager;
 
         public FileManager(SoloContext context)
         {
             this.context = context;
-            airportFileManager = new AirportFileManager(context);
-            logFileManager = new LogFileManager(context);
         }
 
         public async Task<bool> InsertFilesAsync(List<Model.Models.File> files)
@@ -36,46 +32,7 @@ namespace Solo_feladat.BLL.Managers
             return await context.SaveChangesAsync() > 0;
         }
 
-        /// <summary>
-        /// A File tablaban levo feldolgozatlan fajlokat dolgozza fel.
-        /// Ha sikeres egy fajl feldolgozasa akkor torli az adatbazisbol.
-        /// </summary>
-        public async Task SaveDataFromFile()
-        {
-            var files = context.Files.ToList();
-
-            foreach (var file in files)
-            {
-                if (!file.Processed)
-                {
-                    file.Processed = true;
-
-                    await context.SaveChangesAsync();
-
-                    bool result = false;
-
-                    if (file.Type.Equals(FileType.Airport))
-                    {
-                        result = await airportFileManager.ProcessFile(file);
-                    }
-                    else if (file.Type.Equals(FileType.Log))
-                    {
-                        result = await logFileManager.ProcessFile(file);
-                    }
-
-                    if (result)
-                    {
-                        context.Files.Remove(file);
-                    }
-                    else
-                    {
-                        file.Processed = false;
-                    }
-
-                    await context.SaveChangesAsync();
-                }
-            }
-        }
+        public abstract Task ProcessFile();
 
         /// <summary>
         /// A parameterkent kapott IFormFileokbol kinyeri a binaris adatot, amit Fileokba ment.
