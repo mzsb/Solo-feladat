@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.2",
-    "signature": "58b9138a266a2835394cada00f036156e72bec60"
+    "signature": "9335257e34ec83bd8c0f16e8f3ca934820709819"
   },
   "compilationOptions": {
     "defines": [
@@ -28,7 +28,6 @@
           "Hangfire.AspNetCore": "1.7.3",
           "Hangfire.Core": "1.7.3",
           "Hangfire.SqlServer": "1.7.3",
-          "Microsoft.AspNet.Identity.Core": "2.2.2",
           "Microsoft.AspNetCore.App": "2.2.0",
           "Microsoft.AspNetCore.Razor.Design": "2.2.0",
           "Microsoft.NETCore.App": "2.2.0",
@@ -159,17 +158,6 @@
         },
         "compile": {
           "lib/netstandard2.0/Hangfire.SqlServer.dll": {}
-        }
-      },
-      "Microsoft.AspNet.Identity.Core/2.2.2": {
-        "runtime": {
-          "lib/net45/Microsoft.AspNet.Identity.Core.dll": {
-            "assemblyVersion": "2.0.0.0",
-            "fileVersion": "0.0.0.0"
-          }
-        },
-        "compile": {
-          "lib/net45/Microsoft.AspNet.Identity.Core.dll": {}
         }
       },
       "Microsoft.CodeAnalysis.CSharp.Workspaces/2.8.0": {
@@ -3859,13 +3847,6 @@
       "sha512": "sha512-lcwp5YGZi9m/i9B7vIRgkYYwy0j5fu8DImU1+jnxjwEhuWaittJu4HdxqgWjwmiP5hnUiIO6J53cXpH/dnohWg==",
       "path": "hangfire.sqlserver/1.7.3",
       "hashPath": "hangfire.sqlserver.1.7.3.nupkg.sha512"
-    },
-    "Microsoft.AspNet.Identity.Core/2.2.2": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-aZoXAqqisAQlEdeMwcn204m7ErUeYXJuoZ4YqvV85OPeB0w8o8kW8Ww5o5ZTZFx3mrLmmtfWKjt4nLqfjzjXEw==",
-      "path": "microsoft.aspnet.identity.core/2.2.2",
-      "hashPath": "microsoft.aspnet.identity.core.2.2.2.nupkg.sha512"
     },
     "Microsoft.CodeAnalysis.CSharp.Workspaces/2.8.0": {
       "type": "package",

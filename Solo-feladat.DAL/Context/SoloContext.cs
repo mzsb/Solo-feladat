@@ -2,10 +2,13 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Solo_feladat.Model.Interfaces;
 using Solo_feladat.Model.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Solo_feladat.DAL.Context
 {
@@ -47,6 +50,45 @@ namespace Solo_feladat.DAL.Context
             modelBuilder.Entity<File>()
                         .Property(f => f.Type)
                         .HasConversion(fileTypeConverter);
+        }
+
+        public override int SaveChanges()
+        {
+            SetCreationDate();
+
+            return base.SaveChanges();
+        }
+
+        public override int SaveChanges(bool acceptAllChangesOnSuccess)
+        {
+            SetCreationDate();
+
+            return base.SaveChanges(acceptAllChangesOnSuccess);
+        }
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            SetCreationDate();
+
+            return base.SaveChangesAsync(cancellationToken);
+        }
+
+        public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
+        {
+            SetCreationDate();
+
+            return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
+        }
+
+        private void SetCreationDate()
+        {
+            foreach(var e in this.ChangeTracker.Entries<IAuditable>())
+            {
+                if (e.State.Equals(EntityState.Added))
+                {
+                    e.Entity.CreationDate = DateTime.Now;
+                }
+            }
         }
     }
 }

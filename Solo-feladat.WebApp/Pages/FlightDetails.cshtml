@@ -28,7 +28,6 @@
 
             @foreach (var coordinate in Model.Coordinates)
             {
-
                 <text>
                         flightPlanCoordinates.push(
                         {
@@ -95,10 +94,10 @@
                 {
                     <tr>
                         <td>
-                            <form class="form-valid" asp-page-handler="Accept" asp-route-id="@Model.Flight.Id" method="post">
+                            <form class="form-valid" asp-page-handler="AcceptAsync" asp-route-id="@Model.Flight.Id" method="post">
                                 <button class="btn-valid">Elfogad</button>
                             </form>
-                            <form class="form-valid" asp-page-handler="Denied" asp-route-id="@Model.Flight.Id" method="post">
+                            <form class="form-valid" asp-page-handler="DeniedAsync" asp-route-id="@Model.Flight.Id" method="post">
                                 <button class="btn-valid">Elutasít</button>
                             </form>
                         </td>

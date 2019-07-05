@@ -40,7 +40,7 @@ namespace Solo_feladat.BLL.Managers
         /// A File tablaban levo feldolgozatlan fajlokat dolgozza fel.
         /// Ha sikeres egy fajl feldolgozasa akkor torli az adatbazisbol.
         /// </summary>
-        public async void SaveDataFromFile()
+        public async Task SaveDataFromFile()
         {
             var files = context.Files.ToList();
 

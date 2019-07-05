@@ -27,14 +27,14 @@ namespace Solo_feladat.WebApp.Pages
             this.mapper = mapper;
         }
 
-        public async Task OnGet(Guid Id)
+        public async Task OnGetAsync(Guid Id)
         {
             Flight = mapper.Map<Flight>(await flightManager.GetFlightByIdAsync(Id));
 
             Coordinates = Flight.Coordinates.ToList();
         }
 
-        public async Task<ActionResult> OnPostAccept(Guid Id)
+        public async Task<ActionResult> OnPostAcceptAsync(Guid Id)
         {
             Flight = mapper.Map<Flight>(await flightManager.GetFlightByIdAsync(Id));
 
@@ -47,7 +47,7 @@ namespace Solo_feladat.WebApp.Pages
             return Page();
         }
 
-        public async Task<ActionResult> OnPostDenied(Guid Id)
+        public async Task<ActionResult> OnPostDeniedAsync(Guid Id)
         {
             Flight = mapper.Map<Flight>(await flightManager.GetFlightByIdAsync(Id));
 

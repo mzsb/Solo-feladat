@@ -21,6 +21,9 @@ using Solo_feladat.WebApp.Mapper;
 using Hangfire;
 using Hangfire.SqlServer;
 using Solo_feladat.WebApp.Jobs;
+using Solo_feladat.WebApp.PageFilters;
+using System.IO;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Solo_feladat.WebApp
 {
@@ -42,10 +45,6 @@ namespace Solo_feladat.WebApp
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-             .AddJsonOptions(json =>
-             json.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 
             services.AddDbContext<SoloContext>(o =>
                 o.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
@@ -77,6 +76,12 @@ namespace Solo_feladat.WebApp
                     }));
 
             services.AddHangfireServer();
+
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(typeof(ExecutionTimePageFilter));
+                options.Filters.Add(typeof(SoloExceptionFilter));
+            });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

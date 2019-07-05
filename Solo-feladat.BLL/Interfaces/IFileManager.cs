@@ -10,6 +10,6 @@ namespace Solo_feladat.BLL.Interfaces
     {
         Task<bool> InsertFilesAsync(List<Model.Models.File> file);
         Task<List<Dtos.File>> ConvertIFormFiles(List<IFormFile> formFiles);
-        void SaveDataFromFile();
+        Task SaveDataFromFile();
     }
 }

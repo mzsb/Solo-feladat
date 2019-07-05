@@ -148,3 +148,4 @@ C:\Users\mozs.barnabas\Solo_feladat\Solo-feladat\Solo-feladat.WebApp\obj\Debug\n
 C:\Users\mozs.barnabas\Solo_feladat\Solo-feladat\Solo-feladat.WebApp\obj\Debug\netcoreapp2.2\Solo-feladat.WebApp.csproj.CopyComplete
 C:\Users\mozs.barnabas\Solo_feladat\Solo-feladat\Solo-feladat.WebApp\obj\Debug\netcoreapp2.2\Solo-feladat.WebApp.dll
 C:\Users\mozs.barnabas\Solo_feladat\Solo-feladat\Solo-feladat.WebApp\obj\Debug\netcoreapp2.2\Solo-feladat.WebApp.pdb
+C:\Users\mozs.barnabas\Solo_feladat\Solo-feladat\Solo-feladat.WebApp\obj\Debug\netcoreapp2.2\Razor\Pages\_Error.g.cshtml.cs

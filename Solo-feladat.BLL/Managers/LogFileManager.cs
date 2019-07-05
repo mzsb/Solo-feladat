@@ -53,7 +53,7 @@ namespace Solo_feladat.BLL.Managers
 
             var dateRow = log.ElementAt(1);
 
-            dateRow = dateRow.Substring(Math.Max(0, dateRow.Length - (2 * 3)));
+            dateRow = dateRow.Substring(Math.Max(0, dateRow.Length - 6));
 
             flight.Date = GetDateTime(dateRow, "ddMMyy");
 
@@ -148,8 +148,8 @@ namespace Solo_feladat.BLL.Managers
 
         private TimeSpan GetDuration(List<string> fixes, string format)
         {
-            return GetDateTime(fixes.Last().Substring(0, 2 * 3), format) -
-                   GetDateTime(fixes.First().Substring(0, 2 * 3), format);
+            return GetDateTime(fixes.Last().Substring(0, 6), format) -
+                   GetDateTime(fixes.First().Substring(0, 6), format);
         }
 
         private double GetLatitudeCoord(string fix)

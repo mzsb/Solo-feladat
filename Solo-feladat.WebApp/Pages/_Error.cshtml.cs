@@ -4,15 +4,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Solo_feladat.WebApp.PageFilters;
 
 namespace Solo_feladat.WebApp.Pages
 {
-    public class IndexModel : PageModel
+    public class _ErrorModel : PageModel
     {
-        public async Task OnGetAsync()
+        public string Foo { get; set; }
+
+        public void OnGet()
         {
-            //throw new Exception("asd");
+            Foo = Foo;
         }
     }
 }

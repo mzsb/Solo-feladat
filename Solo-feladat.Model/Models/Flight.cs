@@ -1,14 +1,16 @@
-﻿using System;
+﻿using Solo_feladat.Model.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Solo_feladat.Model.Models
 {
-    public class Flight
+    public class Flight : IAuditable
     {
         public Guid Id { get; set; }
         public Guid AppUserId { get; set; }
         public AppUser AppUser { get; set; }
+        public DateTime CreationDate { get; set; }
 
         public DateTime Date { get; set; }
         public FlightStatus Status { get; set; }
